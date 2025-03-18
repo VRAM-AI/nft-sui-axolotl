@@ -93,11 +93,33 @@ module vrap::vrap_nft {
         receiver: address,
         ctx: &mut TxContext
     ) {
+        // need to pay as sui
         let sender = sender(ctx);
         let nft = mint(name, description, url, ctx);
         public_transfer(nft, receiver);
     }
 
+    /// Create a new 0x nft
+    public entry fun whitelist_mint_to_vrap(
+        name: vector<u8>,
+        description: vector<u8>,
+        url: vector<u8>,
+        receiver: address,
+        ctx: &mut TxContext
+    ) {
+        // check whitelist
+        let sender = sender(ctx);
+        let nft = mint(name, description, url, ctx);
+        public_transfer(nft, receiver);
+    }
+
+    /// Create a new 0x nft
+    public entry fun add_whiltelist(
+        receiver: address,
+        ctx: &mut TxContext
+    ) {
+        // check whitelist && add whitelist
+    }
 
     /// Transfer `nft` to `recipient`
     public entry fun transfer(
