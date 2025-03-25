@@ -118,9 +118,9 @@ fun init(otw: VRAM, ctx: &mut TxContext) {
         whitelistMintTotal: 0,
         imgListOf: vec_map::empty<address, String>(),
         imgHistoryOf: vec_map::empty<u64, String>(),
-        totalSupply: 5000,
+        totalSupply: 3333,
         supply: 0,                        // supply number
-        fee: 10_000_000,                  // fee 
+        fee: 15_000_000_000,                  // fee  15_000_000_000
         status: true,
     });
 
