@@ -34,6 +34,14 @@ public struct Treasury has key {
 
         whitelistMintTotal: u64,           // minted count with whitelistMint
 
+        imgListOf: VecMap<address, String>,  // Mapping that keeps track of users' img
+
+        imgHistoryOf: VecMap<u64, String>,  // Mapping that keeps track of users' img
+
+        totalSupply: u64,                  // total supply
+
+        supply: u64,                       // supply
+
         status: bool,                      // false: inactive, true: active
 
         fee: u64,                          // mint fee
@@ -43,7 +51,7 @@ public struct VramNFT has key, store {
     id: UID,
     image_url: String,
     b36addr: String,
-    image_blob_id: String,
+    number_id: u64,
     description: String,
 }
 
@@ -69,6 +77,11 @@ public struct AdminSuiWithdrawn has copy, drop{
     amount: u64
 }
 
+public struct AdminUpdateSupply has copy, drop{
+    user: address,
+    amount: u64
+}
+
 // OTW for display.
 public struct VRAM has drop {}
 
@@ -85,6 +98,10 @@ fun init(otw: VRAM, ctx: &mut TxContext) {
         b"{image_url}".to_string(),
     );
     display.add(
+        b"num".to_string(),
+        b"{num}".to_string(),
+    );
+    display.add(
         b"walrus site address".to_string(),
         VISUALIZATION_SITE.to_string(),
     );
@@ -99,30 +116,84 @@ fun init(otw: VRAM, ctx: &mut TxContext) {
         whitelistOf: vec_map::empty<address, u64>(),
         publicMintTotal: 0,
         whitelistMintTotal: 0,
+        imgListOf: vec_map::empty<address, String>(),
+        imgHistoryOf: vec_map::empty<u64, String>(),
+        totalSupply: 5000,
+        supply: 0,                        // supply number
         fee: 10_000_000,                  // fee 
         status: true,
     });
 
 }
 
-// test nft mint
-entry fun mint(image_blob_id : String, description : String, ctx: &mut TxContext) {
-    let nft = new( image_blob_id, description, ctx);
-    transfer::transfer(nft, tx_context::sender(ctx));
-}
 
-fun new(image_blob_id : String, description : String, ctx: &mut TxContext): VramNFT {
+fun new(number_id : u64, description : String, ctx: &mut TxContext): VramNFT {
     let id = object::new(ctx);
     let b36addr = to_b36(id.uid_to_address());
     // https://i.ibb.co/Fqc3c2Xb/Whats-App-Video-2025-03-21-at-11-00-30-PM.gif
     // https://aggregator.walrus-testnet.walrus.space/v1/blobs/DFn0FyWrIrlHSZVWEC0PDTbbDUapHibZhVKmlAtVG_8
+    // https://i.ibb.co/BV7LR3pD/vram-gpu.png
     let image_url = b"https://i.ibb.co/Fqc3c2Xb/Whats-App-Video-2025-03-21-at-11-00-30-PM.gif".to_string();
     VramNFT {
         id,
         image_url,
         b36addr,
-        image_blob_id,
+        number_id,
         description
+    }
+}
+
+
+// test nft mint
+entry fun mint(number_id : u64, description : String, ctx: &mut TxContext) {
+    let account = tx_context::sender(ctx);
+
+    // check the admin
+    assert!(ADMIN == account, 0);
+
+    let nft = new( number_id, description, ctx);
+    transfer::transfer(nft, tx_context::sender(ctx));
+}
+
+public entry fun reveal_display(
+    display: &mut VramNFT,
+    treasury: &mut Treasury,
+    is_revealed: bool,            // Which one to show
+    gpu_image_hash: String,    // GPU image hash
+    character_image_hash: String, // Character image hash
+    ctx: &TxContext
+) {
+    // assert!(tx_context::sender(ctx) == object::owner(display), 0);
+    let image_hash = if (is_revealed) {
+        character_image_hash
+    } else {
+        gpu_image_hash
+    };
+    display.image_url = image_hash;
+
+    let account = tx_context::sender(ctx);
+
+    if(vec_map::contains(&treasury.imgListOf, &account)){
+        let imgOf_account = vec_map::get_mut(&mut treasury.imgListOf, &account);
+        let img = *imgOf_account;
+        display.image_url = img;
+    }
+}
+
+/// add history nft with ADMIN
+public entry fun add_imglist_hisotyr(
+    history: u64,
+    desc: String,
+    treasury: &mut Treasury,
+    ctx: &mut TxContext
+) {
+    // check  
+    let account = tx_context::sender(ctx);
+    // check the admin
+    assert!(ADMIN == account, 0);
+    // Initialize history mappings if not already present
+    if(!vec_map::contains(&treasury.imgHistoryOf, &history)){
+        vec_map::insert(&mut treasury.imgHistoryOf, history, desc);
     }
 }
 
@@ -139,6 +210,39 @@ public entry fun add_whitelist(
     // Initialize user mappings if not already present
     if(!vec_map::contains(&treasury.whitelistOf, &receiver)){
         vec_map::insert(&mut treasury.whitelistOf, receiver, 1);
+    }
+}
+
+/// add imglist nft with ADMIN
+public entry fun add_imglist(
+    receiver: address,
+    img: String,
+    treasury: &mut Treasury,
+    ctx: &mut TxContext
+) {
+    // check whitelist && add whitelist
+    let account = tx_context::sender(ctx);
+    // check the admin
+    assert!(ADMIN == account, 0);
+    // Initialize user mappings if not already present
+    if(!vec_map::contains(&treasury.imgListOf, &receiver)){
+        vec_map::insert(&mut treasury.imgListOf, receiver, img);
+    }
+}
+
+/// remove imglist nft with ADMIN
+public entry fun remove_imglist(
+    receiver: address,
+    treasury: &mut Treasury,
+    ctx: &mut TxContext
+) {
+    // check whitelist && add whitelist
+    let account = tx_context::sender(ctx);
+    // check the admin
+    assert!(ADMIN == account, 0);
+    // Initialize user mappings if not already present
+    if(vec_map::contains(&treasury.imgListOf, &receiver)){
+        vec_map::remove(&mut treasury.imgListOf, &receiver);
     }
 }
 
@@ -161,15 +265,31 @@ public entry fun remove_whitelist(
 
 /// Create a new nft with whitelist
 public entry fun whitelist_mint(image_blob_id : String, description : String, treasury: &mut Treasury, ctx: &mut TxContext) {
+    
+    let maxSupply = treasury.whitelistMintTotal + treasury.publicMintTotal;
+    assert!(maxSupply <= treasury.totalSupply, 3);
+
     let account = tx_context::sender(ctx);
     // check whitelist
     if(vec_map::contains(&treasury.whitelistOf, &account)){
-        let nft = new( image_blob_id, description, ctx);
-        transfer::transfer(nft, tx_context::sender(ctx));
 
-        treasury.whitelistMintTotal = treasury.whitelistMintTotal + 1;
+        let balanceOf_account = vec_map::get_mut(&mut treasury.whitelistOf, &account);
+        let amount = *balanceOf_account;
 
-        event::emit(WhitelistMint{user:tx_context::sender(ctx)});
+        if(amount == 1){
+
+            treasury.supply = treasury.supply + 1;
+            let number_id = treasury.supply;
+            
+            let nft = new( number_id, description, ctx);
+            transfer::transfer(nft, tx_context::sender(ctx));
+
+            treasury.whitelistMintTotal = treasury.whitelistMintTotal + 1;
+
+            *balanceOf_account = 2;
+
+            event::emit(WhitelistMint{user:tx_context::sender(ctx)});
+        };
     };
 }
 
@@ -180,13 +300,21 @@ public entry fun public_mint(image_blob_id : String, description : String, payme
     
     assert!(amount >= treasury.fee, 2);
 
+    let maxSupply = treasury.whitelistMintTotal + treasury.publicMintTotal;
+    assert!(maxSupply <= treasury.totalSupply, 3);
+
     // Transfer payment to treasury
     let balance = coin::into_balance(payment);
     balance::join(&mut treasury.suiCoinsTreasury, balance);
 
     let account = tx_context::sender(ctx);
 
-    let nft = new( image_blob_id, description, ctx);
+    treasury.supply = treasury.supply + 1;
+    let number_id = treasury.supply;
+
+    let nft = new( number_id, description, ctx);
+
+
     transfer::transfer(nft, tx_context::sender(ctx));
     treasury.publicMintTotal = treasury.publicMintTotal + 1;
 
@@ -195,7 +323,7 @@ public entry fun public_mint(image_blob_id : String, description : String, payme
 }
 
 /// Update the mint fee with ADMIN
-public entry fun update_price(treasury: &mut Treasury, price: u64, ctx: &mut TxContext) {
+public entry fun admin_update_price(treasury: &mut Treasury, price: u64, ctx: &mut TxContext) {
     
     let account = tx_context::sender(ctx);
 
@@ -206,6 +334,20 @@ public entry fun update_price(treasury: &mut Treasury, price: u64, ctx: &mut TxC
 
     event::emit(AdminUpdateFee{user:tx_context::sender(ctx), amount: price});
 }
+
+
+public entry fun admin_update_totalsupply(treasury: &mut Treasury, supply:u64, ctx: &mut TxContext) {
+    
+    let account = tx_context::sender(ctx);
+
+    // check the admin
+    assert!(ADMIN == account, 0);
+    
+    treasury.totalSupply = supply;
+
+    event::emit(AdminUpdateSupply{user:tx_context::sender(ctx), amount: supply});
+}
+
 
 public entry fun admin_withdraw(treasury: &mut Treasury, ctx: &mut TxContext) {
     
@@ -221,7 +363,6 @@ public entry fun admin_withdraw(treasury: &mut Treasury, ctx: &mut TxContext) {
 
     event::emit(AdminSuiWithdrawn{user:tx_context::sender(ctx), amount: totalSuiSupply});
 }
-
 
 // fun num_to_ascii(mut num: u64): vector<u8> {
 //     let mut res = vector[];
