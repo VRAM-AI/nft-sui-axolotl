@@ -164,9 +164,9 @@ fun init(otw: VRAM, ctx: &mut TxContext) {
         attrKeysListOf: vec_map::empty<address, vector<String>>(),
         attrValuesListOf: vec_map::empty<address, vector<String>>(),
         imgHistoryOf: vec_map::empty<u64, String>(),
-        totalSupply: 10,                        // 3333
+        totalSupply: 3333,                        // 3333
         supply: 0,                              // supply number = counter
-        fee:  10_000_000,                       // fee  15_000_000_000
+        fee:  15_000_000_000,                       // fee  15_000_000_000
         status: true,
     });
 
