@@ -31,6 +31,7 @@ public struct Treasury has key {
         id: UID,
 
         whitelistOf: VecMap<address, u64>, // Mapping that keeps track of users' whitelist
+        mintedlistOf: VecMap<address, u64>, // Mapping that keeps track of users' whitelist
 
         suiCoinsTreasury: Balance<SUI>,    // Sui coins held in the treasury,
 
@@ -39,6 +40,9 @@ public struct Treasury has key {
         whitelistMintTotal: u64,           // minted count with whitelistMint
 
         imgListOf: VecMap<address, String>,  // Mapping that keeps track of users' img
+        attrKeysListOf: VecMap<address, vector<String>>,  // Mapping that keeps track of users' attributes
+        attrValuesListOf: VecMap<address, vector<String>>,  // Mapping that keeps track of users' attributes
+        
 
         imgHistoryOf: VecMap<u64, String>,  // Mapping that keeps track of users' img
 
@@ -97,17 +101,17 @@ fun init(otw: VRAM, ctx: &mut TxContext) {
 
     display.add(
         b"collection_name".to_string(),
-        b"VRAM OG Collection".to_string(),
+        b"VRAM OG Collection Test".to_string(),
     );
 
     display.add(
         b"collection_description".to_string(),
-        b"VRAM OG is in VRAM.AI".to_string(),
+        b"VRAM OG is in VRAM.AI Test".to_string(),
     );
 
     display.add(
         b"collection_media_url".to_string(),
-        b"https://i.ibb.co/Fqc3c2Xb/Whats-App-Video-2025-03-21-at-11-00-30-PM.gif".to_string(),
+        b"https://aggregator.walrus-testnet.walrus.space/v1/blobs/MjRV_-u_6IsFR2d71k8Y3pAoU4MqBewC7xRF4nrZgyg".to_string(),
     );
 
     display.add(
@@ -153,13 +157,16 @@ fun init(otw: VRAM, ctx: &mut TxContext) {
         id: object::new(ctx),
         suiCoinsTreasury: balance::zero<SUI>(),
         whitelistOf: vec_map::empty<address, u64>(),
+        mintedlistOf: vec_map::empty<address, u64>(),
         publicMintTotal: 0,
         whitelistMintTotal: 0,
         imgListOf: vec_map::empty<address, String>(),
+        attrKeysListOf: vec_map::empty<address, vector<String>>(),
+        attrValuesListOf: vec_map::empty<address, vector<String>>(),
         imgHistoryOf: vec_map::empty<u64, String>(),
-        totalSupply: 3333,
-        supply: 0,                        // supply number
-        fee:  10_000_000, //15_000_000_000,                  // fee  15_000_000_000
+        totalSupply: 10,                        // 3333
+        supply: 0,                              // supply number = counter
+        fee:  10_000_000,                       // fee  15_000_000_000
         status: true,
     });
 
@@ -172,10 +179,10 @@ fun new(number_id : u64, description : String, keys: vector<0x1::string::String>
     // https://i.ibb.co/Fqc3c2Xb/Whats-App-Video-2025-03-21-at-11-00-30-PM.gif
     // https://aggregator.walrus-testnet.walrus.space/v1/blobs/DFn0FyWrIrlHSZVWEC0PDTbbDUapHibZhVKmlAtVG_8
     // https://i.ibb.co/BV7LR3pD/vram-gpu.png
-    let image_url = b"https://i.ibb.co/Fqc3c2Xb/Whats-App-Video-2025-03-21-at-11-00-30-PM.gif".to_string();
+    let image_url = b"https://aggregator.walrus-testnet.walrus.space/v1/blobs/MjRV_-u_6IsFR2d71k8Y3pAoU4MqBewC7xRF4nrZgyg".to_string();
     VramNFT {
         id,
-        name: b"VRAM OG".to_string(),
+        name: b"VRAM OG Test".to_string(),
         image_url,
         b36addr,
         number_id,
@@ -254,6 +261,72 @@ public entry fun add_whitelist(
     }
 }
 
+/// add addkeys_list nft with ADMIN
+public entry fun add_attrkeys_list(
+    receiver: address,
+    keys: vector<0x1::string::String>,
+    treasury: &mut Treasury,
+    ctx: &mut TxContext
+) {
+    // check whitelist && add whitelist
+    let account = tx_context::sender(ctx);
+    // check the admin
+    assert!(ADMIN == account, 0);
+    // Initialize user mappings if not already present
+    if(!vec_map::contains(&treasury.attrKeysListOf, &receiver)){
+        vec_map::insert(&mut treasury.attrKeysListOf, receiver, keys);
+    }
+}
+
+/// remove addkeys_list nft with ADMIN
+public entry fun remove_attrkeys_list(
+    receiver: address,
+    treasury: &mut Treasury,
+    ctx: &mut TxContext
+) {
+    // check whitelist && add whitelist
+    let account = tx_context::sender(ctx);
+    // check the admin
+    assert!(ADMIN == account, 0);
+    // Initialize user mappings if not already present
+    if(vec_map::contains(&treasury.attrKeysListOf, &receiver)){
+        vec_map::remove(&mut treasury.attrKeysListOf, &receiver);
+    }
+}
+
+/// add addvalues_list nft with ADMIN
+public entry fun add_attrvalues_list(
+    receiver: address,
+    values: vector<0x1::string::String>,
+    treasury: &mut Treasury,
+    ctx: &mut TxContext
+) {
+    // check whitelist && add whitelist
+    let account = tx_context::sender(ctx);
+    // check the admin
+    assert!(ADMIN == account, 0);
+    // Initialize user mappings if not already present
+    if(!vec_map::contains(&treasury.attrValuesListOf, &receiver)){
+        vec_map::insert(&mut treasury.attrValuesListOf, receiver, values);
+    }
+}
+
+/// remove addvalues_list nft with ADMIN
+public entry fun remove_attrvalues_list(
+    receiver: address,
+    treasury: &mut Treasury,
+    ctx: &mut TxContext
+) {
+    // check whitelist && add whitelist
+    let account = tx_context::sender(ctx);
+    // check the admin
+    assert!(ADMIN == account, 0);
+    // Initialize user mappings if not already present
+    if(vec_map::contains(&treasury.attrValuesListOf, &receiver)){
+        vec_map::remove(&mut treasury.attrValuesListOf, &receiver);
+    }
+}
+
 /// add imglist nft with ADMIN
 public entry fun add_imglist(
     receiver: address,
@@ -270,6 +343,7 @@ public entry fun add_imglist(
         vec_map::insert(&mut treasury.imgListOf, receiver, img);
     }
 }
+
 
 /// remove imglist nft with ADMIN
 public entry fun remove_imglist(
@@ -334,16 +408,24 @@ public entry fun whitelist_mint(image_blob_id : String, description : String, ke
 
             *balanceOf_account = 2;
 
+            if(!vec_map::contains(&treasury.mintedlistOf, &account)){
+                vec_map::insert(&mut treasury.mintedlistOf, account, 1);
+            }else{
+                let mintedOf_account = vec_map::get_mut(&mut treasury.mintedlistOf, &account);
+                // let _mintedOf_account = *mintedOf_account;
+                *mintedOf_account = *mintedOf_account + 1;
+            };
+
             event::emit(WhitelistMint{user:tx_context::sender(ctx)});
         };
     };
 }
 
 /// Create a new 0x nft with public
-public entry fun update_nft(name : String, description : String, image_url : String, keys: vector<0x1::string::String>, values: vector<0x1::string::String>, 
-ownerKiosk: &mut 0x2::kiosk::Kiosk, vramKioskOwner: &0x2::kiosk::KioskOwnerCap, vramObjectId: 0x2::object::ID, treasury: &mut Treasury, ctx: &mut TxContext) {
+public entry fun update_nft_admin(name : String, description : String, image_url : String, keys: vector<0x1::string::String>, values: vector<0x1::string::String>, 
+ownerKiosk: &mut 0x2::kiosk::Kiosk, ownerKioskCap: &0x2::kiosk::KioskOwnerCap, vramObjectId: 0x2::object::ID, treasury: &mut Treasury, ctx: &mut TxContext) {
 
-    let v0 = 0x2::kiosk::borrow_mut<VramNFT>(ownerKiosk, vramKioskOwner, vramObjectId);
+    let v0 = 0x2::kiosk::borrow_mut<VramNFT>(ownerKiosk, ownerKioskCap, vramObjectId);
     v0.name = name;
     v0.description = description;
     v0.image_url = image_url;
@@ -353,36 +435,56 @@ ownerKiosk: &mut 0x2::kiosk::Kiosk, vramKioskOwner: &0x2::kiosk::KioskOwnerCap, 
 
 /// Create a new 0x nft with public
 public entry fun reveal_update_nft(name : String, description : String, image_url : String, keys: vector<0x1::string::String>, values: vector<0x1::string::String>, 
-ownerKiosk: &mut 0x2::kiosk::Kiosk, vramKioskOwner: &0x2::kiosk::KioskOwnerCap, vramObjectId: 0x2::object::ID, treasury: &mut Treasury, ctx: &mut TxContext) {
+ownerKiosk: &mut 0x2::kiosk::Kiosk, ownerKioskCap: &0x2::kiosk::KioskOwnerCap, vramObjectId: 0x2::object::ID, treasury: &mut Treasury, ctx: &mut TxContext) {
 
     let account = tx_context::sender(ctx);
     if(vec_map::contains(&treasury.imgListOf, &account)){
         let imgOf_account = vec_map::get_mut(&mut treasury.imgListOf, &account);
         let img = *imgOf_account;
         
-        let v0 = 0x2::kiosk::borrow_mut<VramNFT>(ownerKiosk, vramKioskOwner, vramObjectId);
+        let v0 = 0x2::kiosk::borrow_mut<VramNFT>(ownerKiosk, ownerKioskCap, vramObjectId);
         // v0.name = name;
         // v0.description = description;
         v0.image_url = img;
         // v0.attributes = 0x2::vec_map::from_keys_values<0x1::string::String, 0x1::string::String>(keys, values);
-    }
-    
+    };
+
+    if(vec_map::contains(&treasury.attrKeysListOf, &account) && vec_map::contains(&treasury.attrValuesListOf, &account)){
+        let keyOf_account = vec_map::get_mut(&mut treasury.attrKeysListOf, &account);
+        let _keys = *keyOf_account;
+
+        let valuesOf_account = vec_map::get_mut(&mut treasury.attrValuesListOf, &account);
+        let _values = *valuesOf_account;
+
+        let v0 = 0x2::kiosk::borrow_mut<VramNFT>(ownerKiosk, ownerKioskCap, vramObjectId);
+        v0.attributes = 0x2::vec_map::from_keys_values<0x1::string::String, 0x1::string::String>(_keys, _values);
+    };
 }
 
 /// Create a new 0x nft with public
 public entry fun public_mint(image_blob_id : String, description : String, payment: Coin<SUI>, keys: vector<0x1::string::String>, values: vector<0x1::string::String>, vramPolicy: &0x2::transfer_policy::TransferPolicy<VramNFT>, treasury: &mut Treasury, ctx: &mut TxContext) {
     let amount = coin::value(&payment);
-    
+    let account = tx_context::sender(ctx);
+
     assert!(amount >= treasury.fee, 2);
 
     let maxSupply = treasury.whitelistMintTotal + treasury.publicMintTotal;
     assert!(maxSupply <= treasury.totalSupply, 3);
 
+    if(!vec_map::contains(&treasury.mintedlistOf, &account)){
+        vec_map::insert(&mut treasury.mintedlistOf, account, 1);
+    }else{
+        let mintedOf_account = vec_map::get_mut(&mut treasury.mintedlistOf, &account);
+        // let _mintedOf_account = *mintedOf_account;
+        *mintedOf_account = *mintedOf_account + 1;
+
+        assert!( *mintedOf_account <= 10, 4);
+    };
+
     // Transfer payment to treasury
     let balance = coin::into_balance(payment);
     balance::join(&mut treasury.suiCoinsTreasury, balance);
 
-    let account = tx_context::sender(ctx);
 
     treasury.supply = treasury.supply + 1;
     let number_id = treasury.supply;
