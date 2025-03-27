@@ -476,9 +476,9 @@ public entry fun public_mint(image_blob_id : String, description : String, payme
     }else{
         let mintedOf_account = vec_map::get_mut(&mut treasury.mintedlistOf, &account);
         // let _mintedOf_account = *mintedOf_account;
-        *mintedOf_account = *mintedOf_account + 1;
-
         assert!( *mintedOf_account <= 10, 4);
+
+        *mintedOf_account = *mintedOf_account + 1;
     };
 
     // Transfer payment to treasury
