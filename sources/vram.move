@@ -23,7 +23,7 @@ use vram::royalty_rule;
 
 // Constants
 const BASE36: vector<u8> = b"0123456789abcdefghijklmnopqrstuvwxyz"; // Base36 encoding characters
-const VISUALIZATION_SITE: address = @0x52a7bf755a2c311fe6ef71ddbbebe6f4a795ac2302710ee24ad2b7f1b57ccf02; // Site for NFT visualization
+const VISUALIZATION_SITE: address = @0xb747da318c311052b21eddbd46d43a6f04c6689add62f76d58bdd9866a60f3be; // Site for NFT visualization
 const ADMIN: address = @0xa8125cc1a3c3d425a317d405b4089402cf0a9e20fb8a484a0f98973baec09c0b; // Admin wallet address
 
 /// Treasury struct to manage NFT collection state and funds
