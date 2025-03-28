@@ -114,7 +114,7 @@ fun init(otw: VRAM, ctx: &mut TxContext) {
     // Set up dynamic display properties
     display.add(
         b"link".to_string(),
-        b"https://vram.walrus.site/?nft={b36addr}".to_string(),
+        b"https://vramai.wal.app/?nft={b36addr}".to_string(),
     );
     display.add(
         b"name".to_string(),
