@@ -108,7 +108,7 @@ fun init(otw: VRAM, ctx: &mut TxContext) {
 
     display.add(
         b"collection_media_url".to_string(),
-        b"https://vram.mypinata.cloud/ipfs/bafybeigxtjvdrdqb7yiajvc6plnkr3xkohwwaobbygs72qbitnjxetaiaa".to_string(),
+        b"https://vram.mypinata.cloud/ipfs/bafybeiem5nqu6agk2q455pzpwbyew5pt6bi37qpcul26xmcvltcla3k3lq".to_string(),
     );
 
     // Set up dynamic display properties
@@ -176,7 +176,7 @@ fun init(otw: VRAM, ctx: &mut TxContext) {
 fun new(number_id : u64, description : String, keys: vector<0x1::string::String>, values: vector<0x1::string::String>, ctx: &mut TxContext): VramNFT {
     let id = object::new(ctx);
     let b36addr = to_b36(id.uid_to_address());
-    let image_url = b"https://vram.mypinata.cloud/ipfs/bafybeigxtjvdrdqb7yiajvc6plnkr3xkohwwaobbygs72qbitnjxetaiaa".to_string();
+    let image_url = b"https://vram.mypinata.cloud/ipfs/bafybeiem5nqu6agk2q455pzpwbyew5pt6bi37qpcul26xmcvltcla3k3lq".to_string();
     VramNFT {
         id, 
         name: b"VRAM OG Test".to_string(),
