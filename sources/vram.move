@@ -346,7 +346,6 @@ public entry fun remove_whitelist(
 public entry fun whitelist_mint(
     image_blob_id : String, 
     description : String, 
-    payment: Coin<SUI>, 
     keys: vector<0x1::string::String>, 
     values: vector<0x1::string::String>, 
     vramPolicy: &0x2::transfer_policy::TransferPolicy<VramNFT>, 
@@ -357,15 +356,7 @@ public entry fun whitelist_mint(
     let maxSupply = treasury.whitelistMintTotal + treasury.publicMintTotal;
     assert!(maxSupply <= treasury.totalSupply, 3);
 
-    let mintPrice = coin::value(&payment);
     let account = tx_context::sender(ctx);
-
-    // Verify minimum payment for whitelist mint
-    assert!(mintPrice >= 3_000_000_000, 5);  // whitelist mint price 3_000_000_000
-
-    // Transfer payment to treasury
-    let balance = coin::into_balance(payment);
-    balance::join(&mut treasury.suiCoinsTreasury, balance);
 
     // Process whitelist mint if user is whitelisted
     if(vec_map::contains(&treasury.whitelistOf, &account)){
