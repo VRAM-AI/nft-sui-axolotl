@@ -1,19 +1,38 @@
-/*
- * +------------------------------------------+
- * |                VRAM.AI                   |
- * |                                          |
- * |             VRAM GENESIS CORE            |
- * |             AXOLOTL PROTOCOL             |
- * |                                          |
- * |         POWERED BY SUI & WALRUS          |
- * |                                          |
- * |             3,333 CORES              |
- * |                                          |
- * |           ON-CHAIN EVOLUTION             |
- * |                                          |
- * |             #VRAM_GENESIS                |
- * +------------------------------------------+
- */
+/// VRAM Genesis Core NFT Collection
+/// Implementation of the Axolotl Protocol for evolving digital assets on Sui
+/// Version: 1.0.0 - Mainnet Release (March 30, 2025)
+/// 
+/// This contract implements a fully on-chain evolving NFT collection with:
+/// - On-chain evolution mechanics
+/// VRAM.AI - The future of evolving digital assets
+
+/// +------------------------------------------+
+/// |                                          |
+/// |  __      __  _____              __  __   |
+/// |  \ \    / / |  __ \     /\     |  \/  |  |
+/// |   \ \  / /  | |__) |   /  \    | \  / |  |
+/// |    \ \/ /   |  _  /   / /\ \   | |\/| |  |
+/// |     \  /    | | \ \  / ____ \  | |  | |  |
+/// |      \/     |_|  \_\/_/    \_\ |_|  |_|  |
+/// |                                          |
+/// |           GENESIS CORE                   |
+/// |                                          |
+/// +------------------------------------------+
+
+/// +------------------------------------------+
+/// |                VRAM.AI                   |
+/// |                                          |
+/// |             VRAM GENESIS CORE            |
+/// |             AXOLOTL PROTOCOL             |
+/// |                                          |
+/// |         POWERED BY SUI & WALRUS          |
+/// |                                          |
+/// |             3,333 CORES                  |
+/// |                                          |
+/// |           ON-CHAIN EVOLUTION             |
+/// |                                          |
+/// |             #VRAM_GENESIS                |
+/// +------------------------------------------+
 
 /// VRAM Genesis Core - Implementation of the Axolotl Protocol for evolving NFTs on Sui blockchain
 ///
@@ -73,11 +92,13 @@ use vram::royalty_rule;
 // Constants
 const BASE36: vector<u8> = b"0123456789abcdefghijklmnopqrstuvwxyz"; // Base36 encoding characters
 const VISUALIZATION_SITE: address = @0xb747da318c311052b21eddbd46d43a6f04c6689add62f76d58bdd9866a60f3be; // Site for NFT visualization
-const ADMIN: address = @0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363; // Admin wallet address
+const ADMIN: address = @0x7f2f424e0b808b5ef40cd15bb682ca716c02fec2e5627aed836a55441ee27427; // Admin wallet address
 
 /// Treasury struct to manage NFT collection state and funds
 /// This implements the State Management component of the Axolotl Protocol,
 /// tracking current states and evolution history for all NFTs
+/// This Treasury struct is the central storage mechanism for the VRAM NFT collection
+/// It manages whitelisting, minting counts, and evolution states for the Axolotl Protocol
 public struct Treasury has key {
     id: UID,
     whitelistOf: VecMap<address, u64>, // Tracks whitelisted users and their status
@@ -87,6 +108,7 @@ public struct Treasury has key {
     whitelistMintTotal: u64,           // Total NFTs minted through whitelist
     
     // Evolution Mechanics - State Management for Axolotl Protocol
+    // These mappings enable the on-chain evolution capabilities of VRAM NFTs
     imgListOf: VecMap<address, String>,  // Maps user addresses to their NFT images (for evolution)
     attrKeysListOf: VecMap<address, vector<String>>,  // Maps user addresses to their NFT attribute keys
     attrValuesListOf: VecMap<address, vector<String>>,  // Maps user addresses to their NFT attribute values
