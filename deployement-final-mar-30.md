@@ -1,34 +1,175 @@
-# VRAM Genesis NFT Collection - Deployment Summary
 
-## Core Contract Information
-| Property | Value |
-|----------|-------|
-| **Package ID** | `0x831d5788845b393177eb31b1cfe66b94c3014723d3551fcacab5c04c7a0d1f4f` |
-| **Admin Address** | `0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363` |
-| **Deployment Date** | 2025-03-29 |
-| **Explorer Link** | [View on Sui Explorer](https://suiexplorer.com/object/0x831d5788845b393177eb31b1cfe66b94c3014723d3551fcacab5c04c7a0d1f4f?network=mainnet) |
+(base) sid@pop-os:~/vram-nft-contract$ cd /home/sid/vram-nft-contract && sui client publish --gas-budget 200000000
+[Note]: Dependency sources are no longer verified automatically during publication and upgrade. You can pass the `--verify-deps` option if you would like to verify them as part of publication or upgrade.
+[note] Dependencies on Bridge, DeepBook, MoveStdlib, Sui, and SuiSystem are automatically added, but this feature is disabled for your package because you have explicitly included dependencies on Sui. Consider removing these dependencies from Move.toml.
+UPDATING GIT DEPENDENCY https://github.com/MystenLabs/sui.git
+INCLUDING DEPENDENCY Sui
+INCLUDING DEPENDENCY MoveStdlib
+BUILDING vram
+warning[W09001]: unused alias
+   ┌─ /home/sid/vram-nft-contract/sources/vram.move:57:16
+   │
+57 │ use sui::url::{Self, Url};
+   │                ^^^^ Unused 'use' of alias 'url'. Consider removing it
+   │
+   = This warning can be suppressed with '#[allow(unused_use)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
 
-## Collection Parameters
-- **Total Supply**: 3,333 NFTs
-- **Mint Price**: 15 SUI
-- **Royalty**: 5%
-- **Visualization Site**: `0xb747da318c311052b21eddbd46d43a6f04c6689add62f76d58bdd9866a60f3be`
+warning[W09001]: unused alias
+   ┌─ /home/sid/vram-nft-contract/sources/vram.move:57:22
+   │
+57 │ use sui::url::{Self, Url};
+   │                      ^^^ Unused 'use' of alias 'Url'. Consider removing it
+   │
+   = This warning can be suppressed with '#[allow(unused_use)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
 
-## Key Features
-- First implementation of the Axolotl Protocol for NFT evolution
-- On-chain permanence with complete evolution history
-- Hybrid storage via Walrus (decentralized blob storage)
-- Marketplace compatibility with kiosk system integration
-- Multiple evolution mechanics (reveal-based, attribute-based)
+warning[W09001]: unused alias
+   ┌─ /home/sid/vram-nft-contract/sources/vram.move:58:19
+   │
+58 │ use std::string::{utf8, String};
+   │                   ^^^^ Unused 'use' of alias 'utf8'. Consider removing it
+   │
+   = This warning can be suppressed with '#[allow(unused_use)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
 
-## Integration Notes
-- Use package ID for all contract interactions
-- Admin address has exclusive access to administrative functions
-- Minting site: vramai.wal.app
-- Kiosk system required for marketplace compatibility
+warning[W02021]: duplicate alias
+   ┌─ /home/sid/vram-nft-contract/sources/vram.move:59:19
+   │
+59 │ use sui::object::{Self, ID, UID};
+   │                   ^^^^ Unnecessary alias 'object' for module 'sui::object'. This alias is provided by default
+   │
+   = This warning can be suppressed with '#[allow(duplicate_alias)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
 
+warning[W02021]: duplicate alias
+   ┌─ /home/sid/vram-nft-contract/sources/vram.move:59:25
+   │
+59 │ use sui::object::{Self, ID, UID};
+   │                         ^^ Unnecessary alias 'ID' for module member 'sui::object::ID'. This alias is provided by default
+   │
+   = This warning can be suppressed with '#[allow(duplicate_alias)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
 
+warning[W09001]: unused alias
+   ┌─ /home/sid/vram-nft-contract/sources/vram.move:59:25
+   │
+59 │ use sui::object::{Self, ID, UID};
+   │                         ^^ Unused 'use' of alias 'ID'. Consider removing it
+   │
+   = This warning can be suppressed with '#[allow(unused_use)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
 
+warning[W02021]: duplicate alias
+   ┌─ /home/sid/vram-nft-contract/sources/vram.move:59:29
+   │
+59 │ use sui::object::{Self, ID, UID};
+   │                             ^^^ Unnecessary alias 'UID' for module member 'sui::object::UID'. This alias is provided by default
+   │
+   = This warning can be suppressed with '#[allow(duplicate_alias)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W02021]: duplicate alias
+   ┌─ /home/sid/vram-nft-contract/sources/vram.move:61:10
+   │
+61 │ use sui::transfer;
+   │          ^^^^^^^^ Unnecessary alias 'transfer' for module 'sui::transfer'. This alias is provided by default
+   │
+   = This warning can be suppressed with '#[allow(duplicate_alias)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W09001]: unused alias
+   ┌─ /home/sid/vram-nft-contract/sources/vram.move:62:21
+   │
+62 │ use sui::transfer::{public_transfer};
+   │                     ^^^^^^^^^^^^^^^ Unused 'use' of alias 'public_transfer'. Consider removing it
+   │
+   = This warning can be suppressed with '#[allow(unused_use)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W02021]: duplicate alias
+   ┌─ /home/sid/vram-nft-contract/sources/vram.move:63:31
+   │
+63 │ use sui::tx_context::{sender, Self, TxContext};
+   │                               ^^^^ Unnecessary alias 'tx_context' for module 'sui::tx_context'. This alias is provided by default
+   │
+   = This warning can be suppressed with '#[allow(duplicate_alias)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W02021]: duplicate alias
+   ┌─ /home/sid/vram-nft-contract/sources/vram.move:63:37
+   │
+63 │ use sui::tx_context::{sender, Self, TxContext};
+   │                                     ^^^^^^^^^ Unnecessary alias 'TxContext' for module member 'sui::tx_context::TxContext'. This alias is provided by default
+   │
+   = This warning can be suppressed with '#[allow(duplicate_alias)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W09012]: unused 'mut' modifiers
+    ┌─ /home/sid/vram-nft-contract/sources/vram.move:222:13
+    │
+222 │     let mut v4 = v3;
+    │         --- ^^ The variable 'v4' is never used mutably
+    │         │    
+    │         Consider removing the 'mut' declaration here
+    │
+    = This warning can be suppressed with '#[allow(unused_let_mut)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[Lint W99000]: possible owned object share
+    ┌─ /home/sid/vram-nft-contract/sources/vram.move:233:5
+    │
+233 │     0x2::transfer::public_share_object<0x2::transfer_policy::TransferPolicy<VramNFT>>(v5);
+    │     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    │     │                                                                                 │
+    │     │                                                                                 Creating a fresh object and sharing it within the same function will ensure this does not abort.
+    │     Potential abort from a (potentially) owned object created by a different transaction.
+    │
+    ┌─ /home/sid/.move/https___github_com_MystenLabs_sui_git_framework__mainnet/crates/sui-framework/packages/sui-framework/sources/kiosk/transfer_policy.move:71:50
+    │
+ 71 │ public struct TransferPolicy<phantom T> has key, store {
+    │                                                  ----- Potentially an owned object because 'store' grants access to public transfers
+    ·
+115 │ public fun new<T>(pub: &Publisher, ctx: &mut TxContext): (TransferPolicy<T>, TransferPolicyCap<T>) {
+    │                                                           ----------------- A potentially owned object coming from here
+    │
+    = This warning can be suppressed with '#[allow(lint(share_owned))]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W09002]: unused variable
+    ┌─ /home/sid/vram-nft-contract/sources/vram.move:440:5
+    │
+440 │     image_blob_id : String, 
+    │     ^^^^^^^^^^^^^ Unused parameter 'image_blob_id'. Consider removing or prefixing with an underscore: '_image_blob_id'
+    │
+    = This warning can be suppressed with '#[allow(unused_variable)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W09012]: unused 'mut' modifiers
+    ┌─ /home/sid/vram-nft-contract/sources/vram.move:466:21
+    │
+466 │             let mut v5 = v4;
+    │                 --- ^^ The variable 'v5' is never used mutably
+    │                 │    
+    │                 Consider removing the 'mut' declaration here
+    │
+    = This warning can be suppressed with '#[allow(unused_let_mut)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W09002]: unused variable
+    ┌─ /home/sid/vram-nft-contract/sources/vram.move:499:5
+    │
+499 │     treasury: &mut Treasury, 
+    │     ^^^^^^^^ Unused parameter 'treasury'. Consider removing or prefixing with an underscore: '_treasury'
+    │
+    = This warning can be suppressed with '#[allow(unused_variable)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W09002]: unused variable
+    ┌─ /home/sid/vram-nft-contract/sources/vram.move:500:5
+    │
+500 │     ctx: &mut TxContext
+    │     ^^^ Unused parameter 'ctx'. Consider removing or prefixing with an underscore: '_ctx'
+    │
+    = This warning can be suppressed with '#[allow(unused_variable)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W09002]: unused variable
+    ┌─ /home/sid/vram-nft-contract/sources/vram.move:513:5
+    │
+513 │     name : String, 
+    │     ^^^^ Unused parameter 'name'. Consider removing or prefixing with an underscore: '_name'
+    │
+    = This warning can be suppressed with '#[allow(unused_variable)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
+
+warning[W09002]: unused variable
+    ┌─ /home/sid/vram-nft-contract/sources/vram.move:514:5
+    │
+514 │     description : String, 
+    │     ^^^^^^^^^^^ Unused parameter 'description'. Consider removing or prefixing with an underscore: '_description'
     │
     = This warning can be suppressed with '#[allow(unused_variable)]' applied to the 'module' or module member ('const', 'fun', or 'struct')
 
@@ -77,19 +218,19 @@ warning[W09012]: unused 'mut' modifiers
 Please report feedback on the linter warnings at https://forums.sui.io
 
 Skipping dependency verification
-Transaction Digest: EuDW5S2STdmx9cbZTHarwEfo6DycStRxMDuDFDYrp4q
+Transaction Digest: 5J39SmGqkLTmU4qTmFvRmDpxg6rUMd8wWFd8CUHCJudz
 ╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
 │ Transaction Data                                                                                             │
 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
 │ Sender: 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363                                   │
 │ Gas Owner: 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363                                │
-│ Gas Budget: 100000000 MIST                                                                                   │
+│ Gas Budget: 200000000 MIST                                                                                   │
 │ Gas Price: 750 MIST                                                                                          │
 │ Gas Payment:                                                                                                 │
 │  ┌──                                                                                                         │
-│  │ ID: 0x36791a3d7d1e3b595c106e2b6d26ff4a7dff9539db7ec8e7f6998faea3d9e7ca                                    │
-│  │ Version: 510488298                                                                                        │
-│  │ Digest: 9GpGtiYKrfE6tZnq47q8ddXQjGSnGREffC97Ji1Dj9YD                                                      │
+│  │ ID: 0x9f282af6f42295b2f6af72b815a3e5ec723e489a5731904e7ba2afe5b687a39c                                    │
+│  │ Version: 512614651                                                                                        │
+│  │ Digest: 8zu8fX9aTE5MiKA98opWWBkv1snmbuwZ5V74fW7TiPa3                                                      │
 │  └──                                                                                                         │
 │                                                                                                              │
 │ Transaction Kind: Programmable                                                                               │
@@ -117,84 +258,84 @@ Transaction Digest: EuDW5S2STdmx9cbZTHarwEfo6DycStRxMDuDFDYrp4q
 │ ╰─────────────────────────────────────────────────────────────────────────╯                                  │
 │                                                                                                              │
 │ Signatures:                                                                                                  │
-│    i02XUmNPduwVS57tH1FGp9fUEDM9YKyLPBG1KCBt5PBbj3Pzh9kcmHO6enAfOOA4PVDGHR0FMC8JRpPaN5j0CQ==                  │
+│    lm+kRSTA40RLOkOGCXpK0AYwMZ4zmPxBqd+efwYpiwLSm4sniLEaf0KaOHCaCGA5Kh39Rj5MzpOUvlyEhfrcBw==                  │
 │                                                                                                              │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭───────────────────────────────────────────────────────────────────────────────────────────────────╮
 │ Transaction Effects                                                                               │
 ├───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ Digest: EuDW5S2STdmx9cbZTHarwEfo6DycStRxMDuDFDYrp4q                                               │
+│ Digest: 5J39SmGqkLTmU4qTmFvRmDpxg6rUMd8wWFd8CUHCJudz                                              │
 │ Status: Success                                                                                   │
-│ Executed Epoch: 716                                                                               │
+│ Executed Epoch: 717                                                                               │
 │                                                                                                   │
 │ Created Objects:                                                                                  │
 │  ┌──                                                                                              │
-│  │ ID: 0x3a093ecddca8f741b30238df3ef516fc4b13e56b8513728c92e39cad6ff3ea69                         │
-│  │ Owner: Shared( 510488299 )                                                                     │
-│  │ Version: 510488299                                                                             │
-│  │ Digest: FsEsuVs9y2ruRJuh2yTtzpGnTbyFEufJqqBKpLDmJ3fy                                           │
-│  └──                                                                                              │
-│  ┌──                                                                                              │
-│  │ ID: 0x3bd51dd4d9d5e3e91e06094eeee32d0d57926d8f76a6ba12db74115ec0510cd4                         │
-│  │ Owner: Object ID: ( 0x3a093ecddca8f741b30238df3ef516fc4b13e56b8513728c92e39cad6ff3ea69 )       │
-│  │ Version: 510488299                                                                             │
-│  │ Digest: 8JCo7uPxqcr6PzGg7QU3Yhww8G37aW4FAX7dcR9B1aet                                           │
-│  └──                                                                                              │
-│  ┌──                                                                                              │
-│  │ ID: 0x3ec462d61aeb09aaaded2bbb256f21c288b1ad4f6fda5cd9436209bf88a60410                         │
-│  │ Owner: Object ID: ( 0x3a093ecddca8f741b30238df3ef516fc4b13e56b8513728c92e39cad6ff3ea69 )       │
-│  │ Version: 510488299                                                                             │
-│  │ Digest: 9frvKgnRbNjdSdNm8Y9aghWXEHfxmf9sDLyYH6ncYNwD                                           │
-│  └──                                                                                              │
-│  ┌──                                                                                              │
-│  │ ID: 0x6a97b88e1c2c3a084cf1d7c49c1cc0c1bb40d16f8d9c66f49a0c8165a6e13e36                         │
+│  │ ID: 0x149130bba4c90e3423649808eabbcf1ab77fae9daef21d1e4a359ccddf6b5091                         │
 │  │ Owner: Account Address ( 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363 )  │
-│  │ Version: 510488299                                                                             │
-│  │ Digest: EUVUeNySrF4eUx1TXAoWcyY4xGUBHZdSTQpGhAVWMQSn                                           │
+│  │ Version: 512614652                                                                             │
+│  │ Digest: F6C2TmmXS41shucxyrmTT6bK9iacUU6g8ZtjGQKWXQNC                                           │
 │  └──                                                                                              │
 │  ┌──                                                                                              │
-│  │ ID: 0x831d5788845b393177eb31b1cfe66b94c3014723d3551fcacab5c04c7a0d1f4f                         │
+│  │ ID: 0x21e56663805d3ffddfcc11f58691058555a8667d2ebbb34f28f3faf64f9294f3                         │
+│  │ Owner: Account Address ( 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363 )  │
+│  │ Version: 512614652                                                                             │
+│  │ Digest: 8RaSgC4dyt7b65su2V9oYPnQzu4Ngo2HkS74BY7VWWsm                                           │
+│  └──                                                                                              │
+│  ┌──                                                                                              │
+│  │ ID: 0x3cd32d09660df9dc37f680fd99c49bf39a6f392e7bd5795e2bea8dc9db82ff6d                         │
+│  │ Owner: Account Address ( 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363 )  │
+│  │ Version: 512614652                                                                             │
+│  │ Digest: 9HRkDza1JfLSqAyro3B7wHxvQSrgeiWjvLb6aUFtzMW6                                           │
+│  └──                                                                                              │
+│  ┌──                                                                                              │
+│  │ ID: 0x586f37e75d717324efd458c85547a56436780a5e63eca54284ead66e0d5325c5                         │
+│  │ Owner: Shared( 512614652 )                                                                     │
+│  │ Version: 512614652                                                                             │
+│  │ Digest: F11LMxMcwGijMi6D5K8ZFL3HJsFsoaihZzD5KyqNx6fj                                           │
+│  └──                                                                                              │
+│  ┌──                                                                                              │
+│  │ ID: 0x6293d29f6e0a4716fe881d8083b4643421904d94e3eec802114d12e72295edf8                         │
+│  │ Owner: Account Address ( 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363 )  │
+│  │ Version: 512614652                                                                             │
+│  │ Digest: 7SSC7NqWuNykt4tLAbBDPbnMxCybQiUL7uh9FQUK1V8A                                           │
+│  └──                                                                                              │
+│  ┌──                                                                                              │
+│  │ ID: 0x81c1a75fad3a2bbcee5f55c1d0183344120a18b16d991e8c02e4b413b2d6e870                         │
+│  │ Owner: Shared( 512614652 )                                                                     │
+│  │ Version: 512614652                                                                             │
+│  │ Digest: 2HEdkVFbGKRetrkVuYGd5FM9QA7wB1YGzRLzmKFboJPa                                           │
+│  └──                                                                                              │
+│  ┌──                                                                                              │
+│  │ ID: 0xa26e3f4e1d7548865c5a8baf1934b9e127e9f407b51a47b34d34da8179a5262c                         │
+│  │ Owner: Object ID: ( 0x586f37e75d717324efd458c85547a56436780a5e63eca54284ead66e0d5325c5 )       │
+│  │ Version: 512614652                                                                             │
+│  │ Digest: 6UskVCVju67aPjSD2nM17nsbgrxm5A8APQ4iBqZ6wNJg                                           │
+│  └──                                                                                              │
+│  ┌──                                                                                              │
+│  │ ID: 0xe272cf67d1016345d96ccc2f3be09f247ce45451ed99195301dc5890ec2edc34                         │
+│  │ Owner: Object ID: ( 0x586f37e75d717324efd458c85547a56436780a5e63eca54284ead66e0d5325c5 )       │
+│  │ Version: 512614652                                                                             │
+│  │ Digest: CE9WnUfvBs8syqErwZcHwmSQmJHvWcfhe6wYVGCmBaD9                                           │
+│  └──                                                                                              │
+│  ┌──                                                                                              │
+│  │ ID: 0xfe927d5ae27baa747a841293602351778968649b0fa389c4fea4170dc48b907d                         │
 │  │ Owner: Immutable                                                                               │
 │  │ Version: 1                                                                                     │
-│  │ Digest: 9YEFQ88WEDv4WsE75bLE9eSBaHvwd6eiC3TMAhwWhLuy                                           │
-│  └──                                                                                              │
-│  ┌──                                                                                              │
-│  │ ID: 0x92b7591644fe957a2287c3a1e0682ea4703e77f3c4976440c1a4809b348d199d                         │
-│  │ Owner: Account Address ( 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363 )  │
-│  │ Version: 510488299                                                                             │
-│  │ Digest: 9K4tcFmHpctPYMgqJaBPaCF5aKejErpCET1GnHtX1YHU                                           │
-│  └──                                                                                              │
-│  ┌──                                                                                              │
-│  │ ID: 0xb57eca38c7a0bf8537e60710aec4f9bf1acbab9eb589e8e8ea67ec5badd940d5                         │
-│  │ Owner: Account Address ( 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363 )  │
-│  │ Version: 510488299                                                                             │
-│  │ Digest: Dqd75zGmgUVUnjk5NQYa37rJ761xxSfJNNue9qAZFoQP                                           │
-│  └──                                                                                              │
-│  ┌──                                                                                              │
-│  │ ID: 0xde421612a88957f7b8d0a943c4a8d50897f47231b5581f6c8c90edf48065bdd2                         │
-│  │ Owner: Shared( 510488299 )                                                                     │
-│  │ Version: 510488299                                                                             │
-│  │ Digest: 93LjBXykdasCdFmDrdyomu3daFM6LQw7jUJVje7y7Cxp                                           │
-│  └──                                                                                              │
-│  ┌──                                                                                              │
-│  │ ID: 0xeb11bcfd5ff95b5c925424986bc1b1eb6fca9802efc184df07a694a8d3b0f2c7                         │
-│  │ Owner: Account Address ( 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363 )  │
-│  │ Version: 510488299                                                                             │
-│  │ Digest: 4Hb5KzXjYV9NjtSbBmD3g7otsKPYw8sP9UAimGv7QenP                                           │
+│  │ Digest: 5Jr4uXdpHpHg6CARvHkAFD276C26H5eBiwo5fpwjQVry                                           │
 │  └──                                                                                              │
 │ Mutated Objects:                                                                                  │
 │  ┌──                                                                                              │
-│  │ ID: 0x36791a3d7d1e3b595c106e2b6d26ff4a7dff9539db7ec8e7f6998faea3d9e7ca                         │
+│  │ ID: 0x9f282af6f42295b2f6af72b815a3e5ec723e489a5731904e7ba2afe5b687a39c                         │
 │  │ Owner: Account Address ( 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363 )  │
-│  │ Version: 510488299                                                                             │
-│  │ Digest: GKGeGgZgLt7ghQfaMvHznrG7YryMH1bFpKyNMhhEYbkY                                           │
+│  │ Version: 512614652                                                                             │
+│  │ Digest: 7jfb8riGqwEbnQ7SvCw1fbVXuqcfJpPRvF7C1AEenmQz                                           │
 │  └──                                                                                              │
 │ Gas Object:                                                                                       │
 │  ┌──                                                                                              │
-│  │ ID: 0x36791a3d7d1e3b595c106e2b6d26ff4a7dff9539db7ec8e7f6998faea3d9e7ca                         │
+│  │ ID: 0x9f282af6f42295b2f6af72b815a3e5ec723e489a5731904e7ba2afe5b687a39c                         │
 │  │ Owner: Account Address ( 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363 )  │
-│  │ Version: 510488299                                                                             │
-│  │ Digest: GKGeGgZgLt7ghQfaMvHznrG7YryMH1bFpKyNMhhEYbkY                                           │
+│  │ Version: 512614652                                                                             │
+│  │ Digest: 7jfb8riGqwEbnQ7SvCw1fbVXuqcfJpPRvF7C1AEenmQz                                           │
 │  └──                                                                                              │
 │ Gas Cost Summary:                                                                                 │
 │    Storage Cost: 88152400 MIST                                                                    │
@@ -203,30 +344,30 @@ Transaction Digest: EuDW5S2STdmx9cbZTHarwEfo6DycStRxMDuDFDYrp4q
 │    Non-refundable Storage Fee: 9880 MIST                                                          │
 │                                                                                                   │
 │ Transaction Dependencies:                                                                         │
+│    KViG4jumabB9zWPdcSdMVPBBr6jkyL81K6W2Mejdz1x                                                    │
 │    4TNLF65yDaLUBm31XxQgQffJvmzN98aSiMUDjevYcgfU                                                   │
 │    7fqHwYiiqQ4ypj5erp5HDJogE1gJQJdTZXmv9q4tTjKh                                                   │
-│    AegTokRkvNZCPTH2TqsCjev5n2LjtCWTFX8yfg39UPFn                                                   │
 ╰───────────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
 │ Transaction Block Events                                                                                                                                                                                     │
 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
 │  ┌──                                                                                                                                                                                                         │
-│  │ EventID: EuDW5S2STdmx9cbZTHarwEfo6DycStRxMDuDFDYrp4q:0                                                                                                                                                    │
-│  │ PackageID: 0x831d5788845b393177eb31b1cfe66b94c3014723d3551fcacab5c04c7a0d1f4f                                                                                                                             │
+│  │ EventID: 5J39SmGqkLTmU4qTmFvRmDpxg6rUMd8wWFd8CUHCJudz:0                                                                                                                                                   │
+│  │ PackageID: 0xfe927d5ae27baa747a841293602351778968649b0fa389c4fea4170dc48b907d                                                                                                                             │
 │  │ Transaction Module: vram                                                                                                                                                                                  │
 │  │ Sender: 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363                                                                                                                                │
-│  │ EventType: 0x2::display::DisplayCreated<0x831d5788845b393177eb31b1cfe66b94c3014723d3551fcacab5c04c7a0d1f4f::vram::VramNFT>                                                                                │
+│  │ EventType: 0x2::display::DisplayCreated<0xfe927d5ae27baa747a841293602351778968649b0fa389c4fea4170dc48b907d::vram::VramNFT>                                                                                │
 │  │ ParsedJSON:                                                                                                                                                                                               │
 │  │   ┌────┬────────────────────────────────────────────────────────────────────┐                                                                                                                             │
-│  │   │ id │ 0x6a97b88e1c2c3a084cf1d7c49c1cc0c1bb40d16f8d9c66f49a0c8165a6e13e36 │                                                                                                                             │
+│  │   │ id │ 0x21e56663805d3ffddfcc11f58691058555a8667d2ebbb34f28f3faf64f9294f3 │                                                                                                                             │
 │  │   └────┴────────────────────────────────────────────────────────────────────┘                                                                                                                             │
 │  └──                                                                                                                                                                                                         │
 │  ┌──                                                                                                                                                                                                         │
-│  │ EventID: EuDW5S2STdmx9cbZTHarwEfo6DycStRxMDuDFDYrp4q:1                                                                                                                                                    │
-│  │ PackageID: 0x831d5788845b393177eb31b1cfe66b94c3014723d3551fcacab5c04c7a0d1f4f                                                                                                                             │
+│  │ EventID: 5J39SmGqkLTmU4qTmFvRmDpxg6rUMd8wWFd8CUHCJudz:1                                                                                                                                                   │
+│  │ PackageID: 0xfe927d5ae27baa747a841293602351778968649b0fa389c4fea4170dc48b907d                                                                                                                             │
 │  │ Transaction Module: vram                                                                                                                                                                                  │
 │  │ Sender: 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363                                                                                                                                │
-│  │ EventType: 0x2::display::VersionUpdated<0x831d5788845b393177eb31b1cfe66b94c3014723d3551fcacab5c04c7a0d1f4f::vram::VramNFT>                                                                                │
+│  │ EventType: 0x2::display::VersionUpdated<0xfe927d5ae27baa747a841293602351778968649b0fa389c4fea4170dc48b907d::vram::VramNFT>                                                                                │
 │  │ ParsedJSON:                                                                                                                                                                                               │
 │  │   ┌─────────┬──────────┬───────┬────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐ │
 │  │   │ fields  │ contents │ key   │ collection_name                                                                                                                                                        │ │
@@ -281,20 +422,20 @@ Transaction Digest: EuDW5S2STdmx9cbZTHarwEfo6DycStRxMDuDFDYrp4q
 │  │   │         │          ├───────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤ │
 │  │   │         │          │ value │ b747da318c311052b21eddbd46d43a6f04c6689add62f76d58bdd9866a60f3be                                                                                                       │ │
 │  │   ├─────────┼──────────┴───────┴────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤ │
-│  │   │ id      │ 0x6a97b88e1c2c3a084cf1d7c49c1cc0c1bb40d16f8d9c66f49a0c8165a6e13e36                                                                                                                        │ │
+│  │   │ id      │ 0x21e56663805d3ffddfcc11f58691058555a8667d2ebbb34f28f3faf64f9294f3                                                                                                                        │ │
 │  │   ├─────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤ │
 │  │   │ version │ 1                                                                                                                                                                                         │ │
 │  │   └─────────┴───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘ │
 │  └──                                                                                                                                                                                                         │
 │  ┌──                                                                                                                                                                                                         │
-│  │ EventID: EuDW5S2STdmx9cbZTHarwEfo6DycStRxMDuDFDYrp4q:2                                                                                                                                                    │
-│  │ PackageID: 0x831d5788845b393177eb31b1cfe66b94c3014723d3551fcacab5c04c7a0d1f4f                                                                                                                             │
+│  │ EventID: 5J39SmGqkLTmU4qTmFvRmDpxg6rUMd8wWFd8CUHCJudz:2                                                                                                                                                   │
+│  │ PackageID: 0xfe927d5ae27baa747a841293602351778968649b0fa389c4fea4170dc48b907d                                                                                                                             │
 │  │ Transaction Module: vram                                                                                                                                                                                  │
 │  │ Sender: 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363                                                                                                                                │
-│  │ EventType: 0x2::transfer_policy::TransferPolicyCreated<0x831d5788845b393177eb31b1cfe66b94c3014723d3551fcacab5c04c7a0d1f4f::vram::VramNFT>                                                                 │
+│  │ EventType: 0x2::transfer_policy::TransferPolicyCreated<0xfe927d5ae27baa747a841293602351778968649b0fa389c4fea4170dc48b907d::vram::VramNFT>                                                                 │
 │  │ ParsedJSON:                                                                                                                                                                                               │
 │  │   ┌────┬────────────────────────────────────────────────────────────────────┐                                                                                                                             │
-│  │   │ id │ 0x3a093ecddca8f741b30238df3ef516fc4b13e56b8513728c92e39cad6ff3ea69 │                                                                                                                             │
+│  │   │ id │ 0x586f37e75d717324efd458c85547a56436780a5e63eca54284ead66e0d5325c5 │                                                                                                                             │
 │  │   └────┴────────────────────────────────────────────────────────────────────┘                                                                                                                             │
 │  └──                                                                                                                                                                                                         │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
@@ -303,83 +444,83 @@ Transaction Digest: EuDW5S2STdmx9cbZTHarwEfo6DycStRxMDuDFDYrp4q
 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
 │ Created Objects:                                                                                                                                                                                                                                                 │
 │  ┌──                                                                                                                                                                                                                                                             │
-│  │ ObjectID: 0x3a093ecddca8f741b30238df3ef516fc4b13e56b8513728c92e39cad6ff3ea69                                                                                                                                                                                  │
-│  │ Sender: 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363                                                                                                                                                                                    │
-│  │ Owner: Shared( 510488299 )                                                                                                                                                                                                                                    │
-│  │ ObjectType: 0x2::transfer_policy::TransferPolicy<0x831d5788845b393177eb31b1cfe66b94c3014723d3551fcacab5c04c7a0d1f4f::vram::VramNFT>                                                                                                                           │
-│  │ Version: 510488299                                                                                                                                                                                                                                            │
-│  │ Digest: FsEsuVs9y2ruRJuh2yTtzpGnTbyFEufJqqBKpLDmJ3fy                                                                                                                                                                                                          │
-│  └──                                                                                                                                                                                                                                                             │
-│  ┌──                                                                                                                                                                                                                                                             │
-│  │ ObjectID: 0x3bd51dd4d9d5e3e91e06094eeee32d0d57926d8f76a6ba12db74115ec0510cd4                                                                                                                                                                                  │
-│  │ Sender: 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363                                                                                                                                                                                    │
-│  │ Owner: Object ID: ( 0x3a093ecddca8f741b30238df3ef516fc4b13e56b8513728c92e39cad6ff3ea69 )                                                                                                                                                                      │
-│  │ ObjectType: 0x2::dynamic_field::Field<0x2::transfer_policy::RuleKey<0x831d5788845b393177eb31b1cfe66b94c3014723d3551fcacab5c04c7a0d1f4f::kiosk_lock_rule::Rule>, 0x831d5788845b393177eb31b1cfe66b94c3014723d3551fcacab5c04c7a0d1f4f::kiosk_lock_rule::Config>  │
-│  │ Version: 510488299                                                                                                                                                                                                                                            │
-│  │ Digest: 8JCo7uPxqcr6PzGg7QU3Yhww8G37aW4FAX7dcR9B1aet                                                                                                                                                                                                          │
-│  └──                                                                                                                                                                                                                                                             │
-│  ┌──                                                                                                                                                                                                                                                             │
-│  │ ObjectID: 0x3ec462d61aeb09aaaded2bbb256f21c288b1ad4f6fda5cd9436209bf88a60410                                                                                                                                                                                  │
-│  │ Sender: 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363                                                                                                                                                                                    │
-│  │ Owner: Object ID: ( 0x3a093ecddca8f741b30238df3ef516fc4b13e56b8513728c92e39cad6ff3ea69 )                                                                                                                                                                      │
-│  │ ObjectType: 0x2::dynamic_field::Field<0x2::transfer_policy::RuleKey<0x831d5788845b393177eb31b1cfe66b94c3014723d3551fcacab5c04c7a0d1f4f::royalty_rule::Rule>, 0x831d5788845b393177eb31b1cfe66b94c3014723d3551fcacab5c04c7a0d1f4f::royalty_rule::Config>        │
-│  │ Version: 510488299                                                                                                                                                                                                                                            │
-│  │ Digest: 9frvKgnRbNjdSdNm8Y9aghWXEHfxmf9sDLyYH6ncYNwD                                                                                                                                                                                                          │
-│  └──                                                                                                                                                                                                                                                             │
-│  ┌──                                                                                                                                                                                                                                                             │
-│  │ ObjectID: 0x6a97b88e1c2c3a084cf1d7c49c1cc0c1bb40d16f8d9c66f49a0c8165a6e13e36                                                                                                                                                                                  │
+│  │ ObjectID: 0x149130bba4c90e3423649808eabbcf1ab77fae9daef21d1e4a359ccddf6b5091                                                                                                                                                                                  │
 │  │ Sender: 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363                                                                                                                                                                                    │
 │  │ Owner: Account Address ( 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363 )                                                                                                                                                                 │
-│  │ ObjectType: 0x2::display::Display<0x831d5788845b393177eb31b1cfe66b94c3014723d3551fcacab5c04c7a0d1f4f::vram::VramNFT>                                                                                                                                          │
-│  │ Version: 510488299                                                                                                                                                                                                                                            │
-│  │ Digest: EUVUeNySrF4eUx1TXAoWcyY4xGUBHZdSTQpGhAVWMQSn                                                                                                                                                                                                          │
+│  │ ObjectType: 0x2::transfer_policy::TransferPolicyCap<0xfe927d5ae27baa747a841293602351778968649b0fa389c4fea4170dc48b907d::vram::VramNFT>                                                                                                                        │
+│  │ Version: 512614652                                                                                                                                                                                                                                            │
+│  │ Digest: F6C2TmmXS41shucxyrmTT6bK9iacUU6g8ZtjGQKWXQNC                                                                                                                                                                                                          │
 │  └──                                                                                                                                                                                                                                                             │
 │  ┌──                                                                                                                                                                                                                                                             │
-│  │ ObjectID: 0x92b7591644fe957a2287c3a1e0682ea4703e77f3c4976440c1a4809b348d199d                                                                                                                                                                                  │
+│  │ ObjectID: 0x21e56663805d3ffddfcc11f58691058555a8667d2ebbb34f28f3faf64f9294f3                                                                                                                                                                                  │
+│  │ Sender: 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363                                                                                                                                                                                    │
+│  │ Owner: Account Address ( 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363 )                                                                                                                                                                 │
+│  │ ObjectType: 0x2::display::Display<0xfe927d5ae27baa747a841293602351778968649b0fa389c4fea4170dc48b907d::vram::VramNFT>                                                                                                                                          │
+│  │ Version: 512614652                                                                                                                                                                                                                                            │
+│  │ Digest: 8RaSgC4dyt7b65su2V9oYPnQzu4Ngo2HkS74BY7VWWsm                                                                                                                                                                                                          │
+│  └──                                                                                                                                                                                                                                                             │
+│  ┌──                                                                                                                                                                                                                                                             │
+│  │ ObjectID: 0x3cd32d09660df9dc37f680fd99c49bf39a6f392e7bd5795e2bea8dc9db82ff6d                                                                                                                                                                                  │
 │  │ Sender: 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363                                                                                                                                                                                    │
 │  │ Owner: Account Address ( 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363 )                                                                                                                                                                 │
 │  │ ObjectType: 0x2::package::Publisher                                                                                                                                                                                                                           │
-│  │ Version: 510488299                                                                                                                                                                                                                                            │
-│  │ Digest: 9K4tcFmHpctPYMgqJaBPaCF5aKejErpCET1GnHtX1YHU                                                                                                                                                                                                          │
+│  │ Version: 512614652                                                                                                                                                                                                                                            │
+│  │ Digest: 9HRkDza1JfLSqAyro3B7wHxvQSrgeiWjvLb6aUFtzMW6                                                                                                                                                                                                          │
 │  └──                                                                                                                                                                                                                                                             │
 │  ┌──                                                                                                                                                                                                                                                             │
-│  │ ObjectID: 0xb57eca38c7a0bf8537e60710aec4f9bf1acbab9eb589e8e8ea67ec5badd940d5                                                                                                                                                                                  │
+│  │ ObjectID: 0x586f37e75d717324efd458c85547a56436780a5e63eca54284ead66e0d5325c5                                                                                                                                                                                  │
 │  │ Sender: 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363                                                                                                                                                                                    │
-│  │ Owner: Account Address ( 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363 )                                                                                                                                                                 │
-│  │ ObjectType: 0x2::transfer_policy::TransferPolicyCap<0x831d5788845b393177eb31b1cfe66b94c3014723d3551fcacab5c04c7a0d1f4f::vram::VramNFT>                                                                                                                        │
-│  │ Version: 510488299                                                                                                                                                                                                                                            │
-│  │ Digest: Dqd75zGmgUVUnjk5NQYa37rJ761xxSfJNNue9qAZFoQP                                                                                                                                                                                                          │
+│  │ Owner: Shared( 512614652 )                                                                                                                                                                                                                                    │
+│  │ ObjectType: 0x2::transfer_policy::TransferPolicy<0xfe927d5ae27baa747a841293602351778968649b0fa389c4fea4170dc48b907d::vram::VramNFT>                                                                                                                           │
+│  │ Version: 512614652                                                                                                                                                                                                                                            │
+│  │ Digest: F11LMxMcwGijMi6D5K8ZFL3HJsFsoaihZzD5KyqNx6fj                                                                                                                                                                                                          │
 │  └──                                                                                                                                                                                                                                                             │
 │  ┌──                                                                                                                                                                                                                                                             │
-│  │ ObjectID: 0xde421612a88957f7b8d0a943c4a8d50897f47231b5581f6c8c90edf48065bdd2                                                                                                                                                                                  │
-│  │ Sender: 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363                                                                                                                                                                                    │
-│  │ Owner: Shared( 510488299 )                                                                                                                                                                                                                                    │
-│  │ ObjectType: 0x831d5788845b393177eb31b1cfe66b94c3014723d3551fcacab5c04c7a0d1f4f::vram::Treasury                                                                                                                                                                │
-│  │ Version: 510488299                                                                                                                                                                                                                                            │
-│  │ Digest: 93LjBXykdasCdFmDrdyomu3daFM6LQw7jUJVje7y7Cxp                                                                                                                                                                                                          │
-│  └──                                                                                                                                                                                                                                                             │
-│  ┌──                                                                                                                                                                                                                                                             │
-│  │ ObjectID: 0xeb11bcfd5ff95b5c925424986bc1b1eb6fca9802efc184df07a694a8d3b0f2c7                                                                                                                                                                                  │
+│  │ ObjectID: 0x6293d29f6e0a4716fe881d8083b4643421904d94e3eec802114d12e72295edf8                                                                                                                                                                                  │
 │  │ Sender: 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363                                                                                                                                                                                    │
 │  │ Owner: Account Address ( 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363 )                                                                                                                                                                 │
 │  │ ObjectType: 0x2::package::UpgradeCap                                                                                                                                                                                                                          │
-│  │ Version: 510488299                                                                                                                                                                                                                                            │
-│  │ Digest: 4Hb5KzXjYV9NjtSbBmD3g7otsKPYw8sP9UAimGv7QenP                                                                                                                                                                                                          │
+│  │ Version: 512614652                                                                                                                                                                                                                                            │
+│  │ Digest: 7SSC7NqWuNykt4tLAbBDPbnMxCybQiUL7uh9FQUK1V8A                                                                                                                                                                                                          │
+│  └──                                                                                                                                                                                                                                                             │
+│  ┌──                                                                                                                                                                                                                                                             │
+│  │ ObjectID: 0x81c1a75fad3a2bbcee5f55c1d0183344120a18b16d991e8c02e4b413b2d6e870                                                                                                                                                                                  │
+│  │ Sender: 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363                                                                                                                                                                                    │
+│  │ Owner: Shared( 512614652 )                                                                                                                                                                                                                                    │
+│  │ ObjectType: 0xfe927d5ae27baa747a841293602351778968649b0fa389c4fea4170dc48b907d::vram::Treasury                                                                                                                                                                │
+│  │ Version: 512614652                                                                                                                                                                                                                                            │
+│  │ Digest: 2HEdkVFbGKRetrkVuYGd5FM9QA7wB1YGzRLzmKFboJPa                                                                                                                                                                                                          │
+│  └──                                                                                                                                                                                                                                                             │
+│  ┌──                                                                                                                                                                                                                                                             │
+│  │ ObjectID: 0xa26e3f4e1d7548865c5a8baf1934b9e127e9f407b51a47b34d34da8179a5262c                                                                                                                                                                                  │
+│  │ Sender: 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363                                                                                                                                                                                    │
+│  │ Owner: Object ID: ( 0x586f37e75d717324efd458c85547a56436780a5e63eca54284ead66e0d5325c5 )                                                                                                                                                                      │
+│  │ ObjectType: 0x2::dynamic_field::Field<0x2::transfer_policy::RuleKey<0xfe927d5ae27baa747a841293602351778968649b0fa389c4fea4170dc48b907d::kiosk_lock_rule::Rule>, 0xfe927d5ae27baa747a841293602351778968649b0fa389c4fea4170dc48b907d::kiosk_lock_rule::Config>  │
+│  │ Version: 512614652                                                                                                                                                                                                                                            │
+│  │ Digest: 6UskVCVju67aPjSD2nM17nsbgrxm5A8APQ4iBqZ6wNJg                                                                                                                                                                                                          │
+│  └──                                                                                                                                                                                                                                                             │
+│  ┌──                                                                                                                                                                                                                                                             │
+│  │ ObjectID: 0xe272cf67d1016345d96ccc2f3be09f247ce45451ed99195301dc5890ec2edc34                                                                                                                                                                                  │
+│  │ Sender: 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363                                                                                                                                                                                    │
+│  │ Owner: Object ID: ( 0x586f37e75d717324efd458c85547a56436780a5e63eca54284ead66e0d5325c5 )                                                                                                                                                                      │
+│  │ ObjectType: 0x2::dynamic_field::Field<0x2::transfer_policy::RuleKey<0xfe927d5ae27baa747a841293602351778968649b0fa389c4fea4170dc48b907d::royalty_rule::Rule>, 0xfe927d5ae27baa747a841293602351778968649b0fa389c4fea4170dc48b907d::royalty_rule::Config>        │
+│  │ Version: 512614652                                                                                                                                                                                                                                            │
+│  │ Digest: CE9WnUfvBs8syqErwZcHwmSQmJHvWcfhe6wYVGCmBaD9                                                                                                                                                                                                          │
 │  └──                                                                                                                                                                                                                                                             │
 │ Mutated Objects:                                                                                                                                                                                                                                                 │
 │  ┌──                                                                                                                                                                                                                                                             │
-│  │ ObjectID: 0x36791a3d7d1e3b595c106e2b6d26ff4a7dff9539db7ec8e7f6998faea3d9e7ca                                                                                                                                                                                  │
+│  │ ObjectID: 0x9f282af6f42295b2f6af72b815a3e5ec723e489a5731904e7ba2afe5b687a39c                                                                                                                                                                                  │
 │  │ Sender: 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363                                                                                                                                                                                    │
 │  │ Owner: Account Address ( 0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363 )                                                                                                                                                                 │
 │  │ ObjectType: 0x2::coin::Coin<0x2::sui::SUI>                                                                                                                                                                                                                    │
-│  │ Version: 510488299                                                                                                                                                                                                                                            │
-│  │ Digest: GKGeGgZgLt7ghQfaMvHznrG7YryMH1bFpKyNMhhEYbkY                                                                                                                                                                                                          │
+│  │ Version: 512614652                                                                                                                                                                                                                                            │
+│  │ Digest: 7jfb8riGqwEbnQ7SvCw1fbVXuqcfJpPRvF7C1AEenmQz                                                                                                                                                                                                          │
 │  └──                                                                                                                                                                                                                                                             │
 │ Published Objects:                                                                                                                                                                                                                                               │
 │  ┌──                                                                                                                                                                                                                                                             │
-│  │ PackageID: 0x831d5788845b393177eb31b1cfe66b94c3014723d3551fcacab5c04c7a0d1f4f                                                                                                                                                                                 │
+│  │ PackageID: 0xfe927d5ae27baa747a841293602351778968649b0fa389c4fea4170dc48b907d                                                                                                                                                                                 │
 │  │ Version: 1                                                                                                                                                                                                                                                    │
-│  │ Digest: 9YEFQ88WEDv4WsE75bLE9eSBaHvwd6eiC3TMAhwWhLuy                                                                                                                                                                                                          │
+│  │ Digest: 5Jr4uXdpHpHg6CARvHkAFD276C26H5eBiwo5fpwjQVry                                                                                                                                                                                                          │
 │  │ Modules: kiosk_lock_rule, royalty_rule, vram                                                                                                                                                                                                                  │
 │  └──                                                                                                                                                                                                                                                             │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
@@ -392,27 +533,4 @@ Transaction Digest: EuDW5S2STdmx9cbZTHarwEfo6DycStRxMDuDFDYrp4q
 │  │ Amount: -87924280                                                                              │
 │  └──                                                                                              │
 ╰───────────────────────────────────────────────────────────────────────────────────────────────────╯
-(base) sid@pop-os:~/vram-nft-contract$ git pull
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+(base) sid@pop-os:~/vram-nft-contract$ 
