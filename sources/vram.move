@@ -1,20 +1,53 @@
-/// The VRAM Genesis NFT Collection - Implementation of the Axolotl Standard for evolving NFTs on Sui blockchain
+/*
+ * +------------------------------------------+
+ * |                VRAM.AI                   |
+ * |                                          |
+ * |         VRAM GENESIS COLLECTION          |
+ * |             AXOLOTL PROTOCOL             |
+ * |                                          |
+ * |         POWERED BY SUI & WALRUS          |
+ * |                                          |
+ * |             3,333 FRAGMENTS              |
+ * |                                          |
+ * |           ON-CHAIN EVOLUTION             |
+ * |                                          |
+ * |             #VRAM_GENESIS                |
+ * +------------------------------------------+
+ */
+
+/// The VRAM Genesis NFT Collection - Implementation of the Axolotl Protocol for evolving NFTs on Sui blockchain
 ///
-/// The Genesis VRAM NFT Collection represents the first implementation of the Axolotl Standard 
+/// The Genesis VRAM NFT Collection represents the first implementation of the Axolotl Protocol 
 /// on the Sui blockchain, enabling true on-chain evolution of digital assets. This limited 
 /// collection of 3,333 NFTs serves as the gateway for early supporters to join the VRAM ecosystem.
 ///
 /// The Core doesn't spin or pulse. It calculates probabilities that shouldn't exist, creating 
-/// solutions for questions no one thought to ask. With each interaction, your digital signature 
 /// is permanently etched on the Walrus protocol—evolution captured on-chain forever, 
 /// your influence preserved in the system's expanding consciousness.
 ///
-/// Key Features:
+/// VRAM Genesis Fragments combine cutting-edge blockchain technology with decentralized storage
+/// to enable a new paradigm of digital ownership. As the first implementation of the Axolotl
+/// Protocol, these NFTs can transform and evolve while maintaining their core identity and 
+/// provenance, creating a living digital asset that grows with its owner.
+///
+/// Each Fragment is not just an NFT, but a dynamic digital entity with the ability to
+/// change appearance, attributes, and functionality through on-chain evolution triggers.
+/// The complete history of each Fragment's evolution journey is permanently preserved
+/// on the Sui blockchain, creating an unbreakable chain of provenance and history.
+///
+/// TECHNICAL ARCHITECTURE:
 /// - Object-Centric Model: Leverages Sui's unique object-centric model for true on-chain evolution
-/// - Hybrid Storage: Combines on-chain metadata with decentralized blob storage (Walrus)
-/// - Evolution Mechanics: Multiple evolution patterns including reveal-based, attribute-based, and multi-stage
-/// - Marketplace Integration: Full compatibility with Sui's Kiosk system
+/// - Hybrid Storage: Combines on-chain metadata with decentralized blob storage via Walrus
+/// - Evolution Mechanics: Multiple evolution patterns (reveal-based, attribute-based, multi-stage)
+/// - Marketplace Integration: Full compatibility with Sui's Kiosk system and royalty enforcement
 /// - On-Chain Permanence: Complete history of all evolution states preserved on-chain
+///
+/// IMPLEMENTATION DETAILS:
+/// - VecMap storage for efficient attribute and image mapping
+/// - Base36 encoding for unique identifiers and visualization links
+/// - Royalty enforcement through Sui's transfer policy framework (5%)
+/// - Admin-controlled evolution triggers with security validations
+/// - Whitelist and public mint paths with supply enforcement
 module vram::vram;
 
 // Import necessary Sui framework modules
@@ -40,10 +73,10 @@ use vram::royalty_rule;
 // Constants
 const BASE36: vector<u8> = b"0123456789abcdefghijklmnopqrstuvwxyz"; // Base36 encoding characters
 const VISUALIZATION_SITE: address = @0xb747da318c311052b21eddbd46d43a6f04c6689add62f76d58bdd9866a60f3be; // Site for NFT visualization
-const ADMIN: address = @0x843a4c7ad62d90c8b6ad23a807baa5ade4ee2efac64e4a31d8b31e4caed282f5; // New admin wallet address
+const ADMIN: address = @0x07fde570941e6e1205c846af5eb1c000cd0dce4debf2671904671ccd91755363; // Admin wallet address
 
 /// Treasury struct to manage NFT collection state and funds
-/// This implements the State Management component of the Axolotl Standard,
+/// This implements the State Management component of the Axolotl Protocol,
 /// tracking current states and evolution history for all NFTs
 public struct Treasury has key {
     id: UID,
@@ -53,7 +86,7 @@ public struct Treasury has key {
     publicMintTotal: u64,              // Total NFTs minted through public mint
     whitelistMintTotal: u64,           // Total NFTs minted through whitelist
     
-    // Evolution Mechanics - State Management for Axolotl Standard
+    // Evolution Mechanics - State Management for Axolotl Protocol
     imgListOf: VecMap<address, String>,  // Maps user addresses to their NFT images (for evolution)
     attrKeysListOf: VecMap<address, vector<String>>,  // Maps user addresses to their NFT attribute keys
     attrValuesListOf: VecMap<address, vector<String>>,  // Maps user addresses to their NFT attribute values
@@ -66,14 +99,14 @@ public struct Treasury has key {
 }
 
 /// NFT struct representing a VRAM NFT
-/// Implements the Axolotl Standard for evolving digital assets
+/// Implements the Axolotl Protocol for evolving digital assets
 public struct VramNFT has key, store {
     id: UID,
     name: String,
     image_url: String,       // References blob storage hash through Walrus (decentralized blob storage)
     description: String,
     b36addr: String,         // Unique base36 encoded address for permanence and visualization
-    attributes: VecMap<String, String>,  // Evolving attributes according to Axolotl Standard
+    attributes: VecMap<String, String>,  // Evolving attributes according to Axolotl Protocol
     number_id: u64,
 }
 
@@ -112,7 +145,7 @@ public struct AdminUpdateSupply has copy, drop {
 public struct VRAM has drop {}
 
 /// Initialize the NFT collection
-/// Sets up the Axolotl Standard framework including:
+/// Sets up the Axolotl Protocol framework including:
 /// - Display configuration for NFT visualization
 /// - Kiosk system compatibility for marketplace integration
 /// - Transfer policy enforcement with royalty rules
@@ -129,12 +162,28 @@ fun init(otw: VRAM, ctx: &mut TxContext) {
 
     display.add(
         b"collection_description".to_string(),
-        b"The Genesis VRAM NFT Collection represents the first implementation of the Axolotl Standard on the Sui blockchain, enabling true on-chain evolution of digital assets.".to_string(),
+        b"The Genesis VRAM NFT Collection represents the first implementation of the Axolotl Protocol on the Sui blockchain, enabling true on-chain evolution of digital assets.".to_string(),
     );
 
     display.add(
         b"collection_media_url".to_string(),
         b"https://aggregator.walrus-mainnet.walrus.space/v1/blobs/WtgIqQ3NBOixUUedXI-YL1jgMjKxfSrJMGNUyHiuZ1Q".to_string(),
+    );
+
+    // Standard marketplace metadata fields
+    display.add(
+        b"creator".to_string(),
+        b"VRAM.AI".to_string(),
+    );
+
+    display.add(
+        b"project_url".to_string(),
+        b"https://vramai.wal.app".to_string(),
+    );
+
+    display.add(
+        b"external_url".to_string(),
+        b"https://vramai.wal.app/?nft={b36addr}".to_string(),
     );
 
     // Set up dynamic display properties
@@ -145,6 +194,10 @@ fun init(otw: VRAM, ctx: &mut TxContext) {
     display.add(
         b"name".to_string(),
         b"VRAM Genesis Fragment #{number_id}".to_string(),
+    );
+    display.add(
+        b"description".to_string(),
+        b"{description}".to_string(),
     );
     display.add(
         b"image_url".to_string(),
@@ -199,7 +252,7 @@ fun init(otw: VRAM, ctx: &mut TxContext) {
 }
 
 /// Create a new NFT instance
-/// The base implementation of Axolotl Standard with initial state rendering
+/// The base implementation of Axolotl Protocol with initial state rendering
 /// and preparation for future evolution
 fun new(number_id : u64, description : String, keys: vector<0x1::string::String>, values: vector<0x1::string::String>, ctx: &mut TxContext): VramNFT {
     let id = object::new(ctx);
@@ -225,7 +278,7 @@ entry fun mint(number_id : u64, description : String, keys: vector<0x1::string::
 }
 
 /// Update NFT display properties
-/// Implements Axolotl Standard's Reveal-based Evolution mechanism
+/// Implements Axolotl Protocol's Reveal-based Evolution mechanism
 /// Allows NFTs to transform between different visual states (GPU/character)
 /// while maintaining their identity and on-chain permanence
 public entry fun reveal_display(
@@ -234,7 +287,7 @@ public entry fun reveal_display(
     is_revealed: bool,            // Toggle between GPU and character image
     gpu_image_hash: String,       // GPU image hash in Walrus (decentralized blob storage)
     character_image_hash: String, // Character image hash in Walrus (decentralized blob storage)
-    ctx: &TxContext
+    ctx: &mut TxContext
 ) {
     let image_hash = if (is_revealed) {
         character_image_hash
@@ -254,7 +307,7 @@ public entry fun reveal_display(
 
 /// Admin function to add image history
 /// Records evolution states in the on-chain permanence record
-/// Part of the Axolotl Standard's historical tracking mechanism
+/// Part of the Axolotl Protocol's historical tracking mechanism
 public entry fun add_imglist_history(
     history: u64,
     desc: String,
@@ -282,7 +335,7 @@ public entry fun add_whitelist(
 }
 
 /// Admin function to add attribute keys for a user
-/// Part of the Axolotl Standard's attribute-based evolution mechanism
+/// Part of the Axolotl Protocol's attribute-based evolution mechanism
 /// Enables attribute modifications while maintaining NFT identity
 public entry fun add_attrkeys_list(
     receiver: address,
@@ -311,7 +364,7 @@ public entry fun remove_attrkeys_list(
 }
 
 /// Admin function to add attribute values for a user
-/// Part of the Axolotl Standard's attribute-based evolution mechanism
+/// Part of the Axolotl Protocol's attribute-based evolution mechanism
 /// Enables attribute modifications while maintaining NFT identity
 public entry fun add_attrvalues_list(
     receiver: address,
@@ -340,7 +393,7 @@ public entry fun remove_attrvalues_list(
 }
 
 /// Admin function to add custom image for a user
-/// Implements the Axolotl Standard's evolution mechanism
+/// Implements the Axolotl Protocol's evolution mechanism
 /// Enables visual transformation of NFTs over time
 public entry fun add_imglist(
     receiver: address,
@@ -382,7 +435,7 @@ public entry fun remove_whitelist(
 }
 
 /// Whitelist minting function
-/// Creates NFT with Kiosk lock for marketplace integration according to the Axolotl Standard
+/// Creates NFT with Kiosk lock for marketplace integration according to the Axolotl Protocol
 public entry fun whitelist_mint(
     image_blob_id : String, 
     description : String, 
@@ -433,7 +486,7 @@ public entry fun whitelist_mint(
 }
 
 /// Admin function to update NFT properties
-/// Implements the Axolotl Standard's evolution mechanics
+/// Implements the Axolotl Protocol's evolution mechanics
 public entry fun update_nft_admin(
     name : String, 
     description : String, 
@@ -454,7 +507,7 @@ public entry fun update_nft_admin(
 }
 
 /// Function to reveal and update NFT properties
-/// Implements the Axolotl Standard's reveal-based and attribute-based evolution
+/// Implements the Axolotl Protocol's reveal-based and attribute-based evolution
 /// This enables multi-stage evolution with both visual and metadata changes
 public entry fun reveal_update_nft(
     name : String, 
@@ -492,7 +545,7 @@ public entry fun reveal_update_nft(
 }
 
 /// Public minting function
-/// Creates NFT with Kiosk lock for marketplace integration according to the Axolotl Standard
+/// Creates NFT with Kiosk lock for marketplace integration according to the Axolotl Protocol
 /// Ensures compatibility with Sui's transfer policy framework for royalties
 public entry fun public_mint(
     image_blob_id : String, 
@@ -575,7 +628,7 @@ public entry fun admin_withdraw(treasury: &mut Treasury, ctx: &mut TxContext) {
 }
 
 /// Function to withdraw collection royalties
-/// Implements the transfer policy enforcement aspect of the Axolotl Standard
+/// Implements the transfer policy enforcement aspect of the Axolotl Protocol
 /// Ensures creators receive royalties from marketplace transactions
 public entry fun withdraw_collection_royalty(
     vramPolicy: &mut 0x2::transfer_policy::TransferPolicy<VramNFT>, 
@@ -597,7 +650,7 @@ public entry fun withdraw_collection_royalty(
 }
 
 /// Convert address to base36 string representation
-/// Part of the Axolotl Standard's on-chain permanence and visualization mechanic
+/// Part of the Axolotl Protocol's on-chain permanence and visualization mechanic
 /// Enables unique identifiers for NFTs that can be used in external visualization services
 public fun to_b36(addr: address): String {
     let source = address::to_bytes(addr);
