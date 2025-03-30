@@ -2,12 +2,12 @@
  * +------------------------------------------+
  * |                VRAM.AI                   |
  * |                                          |
- * |         VRAM GENESIS COLLECTION          |
+ * |             VRAM GENESIS CORE            |
  * |             AXOLOTL PROTOCOL             |
  * |                                          |
  * |         POWERED BY SUI & WALRUS          |
  * |                                          |
- * |             3,333 FRAGMENTS              |
+ * |             3,333 CORES              |
  * |                                          |
  * |           ON-CHAIN EVOLUTION             |
  * |                                          |
@@ -15,9 +15,9 @@
  * +------------------------------------------+
  */
 
-/// The VRAM Genesis NFT Collection - Implementation of the Axolotl Protocol for evolving NFTs on Sui blockchain
+/// VRAM Genesis Core - Implementation of the Axolotl Protocol for evolving NFTs on Sui blockchain
 ///
-/// The Genesis VRAM NFT Collection represents the first implementation of the Axolotl Protocol 
+/// The first implementation of the Axolotl Protocol 
 /// on the Sui blockchain, enabling true on-chain evolution of digital assets. This limited 
 /// collection of 3,333 NFTs serves as the gateway for early supporters to join the VRAM ecosystem.
 ///
@@ -25,14 +25,14 @@
 /// is permanently etched on the Walrus protocol—evolution captured on-chain forever, 
 /// your influence preserved in the system's expanding consciousness.
 ///
-/// VRAM Genesis Fragments combine cutting-edge blockchain technology with decentralized storage
+/// VRAM Genesis Cores combine cutting-edge blockchain technology with decentralized storage
 /// to enable a new paradigm of digital ownership. As the first implementation of the Axolotl
 /// Protocol, these NFTs can transform and evolve while maintaining their core identity and 
 /// provenance, creating a living digital asset that grows with its owner.
 ///
-/// Each Fragment is not just an NFT, but a dynamic digital entity with the ability to
+/// Each Core is not just an NFT, but a dynamic digital entity with the ability to
 /// change appearance, attributes, and functionality through on-chain evolution triggers.
-/// The complete history of each Fragment's evolution journey is permanently preserved
+/// The complete history of each Core's evolution journey is permanently preserved
 /// on the Sui blockchain, creating an unbreakable chain of provenance and history.
 ///
 /// TECHNICAL ARCHITECTURE:
@@ -157,7 +157,7 @@ fun init(otw: VRAM, ctx: &mut TxContext) {
     // Set up display properties for the collection
     display.add(
         b"collection_name".to_string(),
-        b"VRAM Genesis NFT Collection".to_string(),
+        b"VRAM GENESIS CORE".to_string(),
     );
 
     display.add(
@@ -193,7 +193,7 @@ fun init(otw: VRAM, ctx: &mut TxContext) {
     );
     display.add(
         b"name".to_string(),
-        b"VRAM Genesis Fragment #{number_id}".to_string(),
+        b"VRAM Genesis Core #{number_id}".to_string(),
     );
     display.add(
         b"description".to_string(),
@@ -260,7 +260,7 @@ fun new(number_id : u64, description : String, keys: vector<0x1::string::String>
     let image_url = b"https://aggregator.walrus-mainnet.walrus.space/v1/blobs/WtgIqQ3NBOixUUedXI-YL1jgMjKxfSrJMGNUyHiuZ1Q".to_string();
     VramNFT {
         id, 
-        name: b"VRAM Genesis Fragment".to_string(),
+        name: b"VRAM Genesis Core".to_string(),
         image_url,
         b36addr,
         number_id,
