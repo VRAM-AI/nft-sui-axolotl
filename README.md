@@ -19,8 +19,14 @@
   - [Reveal Function](#reveal-function)
   - [Attribute Updates](#attribute-updates)
   - [Marketplace Integration](#marketplace-integration)
+- [Real-World Applications](#real-world-applications)
+  - [1. Gaming: Character Evolution](#1-gaming-character-evolution)
+  - [2. Real World Assets (RWA): Property NFTs](#2-real-world-assets-rwa-property-nfts)
+- [Why This is Revolutionary](#why-this-is-revolutionary)
+- [VRAM Genesis Implementation](#vram-genesis-implementation)
 - [Getting Started](#getting-started)
-- [Use Cases](#use-cases)
+- [Documentation](#documentation)
+- [License](#license)
 
 ---
 
@@ -32,6 +38,38 @@ The Axolotl Standard establishes a framework for NFTs that can transform and evo
 - 🔄 Multiple evolution stages with different triggers
 - 📜 Complete preservation of evolution history
 - 🔗 Full compatibility with marketplace standards
+
+---
+
+## The Problem
+
+<blockquote class="twitter-tweet">
+<p lang="en" dir="ltr">CloneX like most of nft evolving are not true web3 assets. If the server die, so does the nft. @vramxai Genesis core NFT solve this issue thanks to axolotl protocols and utilize walrus to store and evolve assets.</p>&mdash; sid (@0x0sid) <a href="https://twitter.com/0x0sid/status/1915367044004126918">October 20, 2023</a>
+</blockquote>
+
+### Real-World Example: CloneX NFT Failure
+
+![CloneX NFTs with restricted content](./assets/CLONEX-ISSUE.png)
+
+*Above: CloneX NFTs #10942 and #14136 showing restricted content due to centralized server issues - Each NFT valued at 0.1699 ETH (~$450) is inaccessible*
+
+This is a perfect example of centralization failure:
+- 🚫 NFT images are inaccessible due to CDN/server restrictions
+- 💸 Despite 0.1699 ETH value, holders can't view their assets
+- ⚠️ Demonstrates complete dependence on centralized infrastructure
+- 🔍 Shows why true decentralization is crucial for NFT longevity
+
+The NFT space faces a critical centralization problem:
+- ⚠️ Most "evolving NFTs" rely on centralized servers
+- 💀 If the server dies, the NFT loses its data and value
+- 🔒 Holders have no true ownership of their asset evolution
+- 📊 Evolution history can be lost or manipulated
+
+The Axolotl Standard solves these issues by providing:
+- ✨ True decentralized evolution through Walrus blob storage
+- 🔐 Permanent, immutable evolution history
+- 🔄 Server-independent asset updates
+- 🎮 Real Web3 ownership of evolving assets
 
 ---
 
@@ -75,6 +113,20 @@ Axolotl NFTs utilize a hybrid storage approach:
 - **Hash verification**: Image integrity through on-chain verification
 
 This architecture ensures efficiency, permanence, and censorship resistance.
+
+---
+
+## System Architecture
+
+```mermaid
+graph TB
+    A[NFT Owner] -->|Trigger Evolution| B[Kiosk Contract]
+    B -->|Verify Ownership| C[Treasury]
+    C -->|1. Update Metadata| D[On-chain State]
+    C -->|2. Store Image| E[Walrus Blob Storage]
+    D -->|Read State| F[Marketplace]
+    E -->|Fetch Image| F
+```
 
 ---
 
@@ -238,67 +290,172 @@ public entry fun list_on_marketplace(
 
 ---
 
+## Evolution Flow
+
+```mermaid
+sequenceDiagram
+    participant Owner
+    participant Kiosk
+    participant Treasury
+    participant Walrus
+    
+    Owner->>Kiosk: Request Evolution
+    Kiosk->>Kiosk: Verify Ownership
+    Kiosk->>Treasury: Execute Evolution
+    Treasury->>Walrus: Store New Image
+    Treasury->>Treasury: Update Metadata
+    Treasury-->>Owner: Evolution Complete
+```
+
+---
+
+## Real-World Applications
+
+### 1. Gaming: Character Evolution
+The Axolotl Standard enables true on-chain character progression:
+- 🎮 Characters can level up based on in-game achievements
+- 🏆 Battle stats and equipment are stored on-chain
+- 🔄 Visual evolution reflects character progression
+- 🔐 All progress is verifiably stored using Walrus blob storage
+
+Example Implementation:
+```move
+// Gaming character evolution
+public entry fun level_up(
+    treasury: &mut Treasury,
+    character: &mut GameCharacter,
+    ctx: &mut TxContext
+) {
+    // Verify owner through kiosk
+    assert!(is_kiosk_owner(character, ctx), ERR_NOT_OWNER);
+    
+    // Update character stats
+    character.level = character.level + 1;
+    character.power = character.power * 1.2;
+    
+    // Update visual representation
+    let new_image = get_evolution_image(character.level);
+    update_nft_image(treasury, character.id, new_image, ctx);
+}
+```
+
+### Gaming Evolution Example
+
+```mermaid
+stateDiagram-v2
+    [*] --> Level1
+    Level1 --> Level2: Win 10 Battles
+    Level2 --> Level3: Complete Quest
+    Level3 --> Level4: Defeat Boss
+    Level4 --> [*]: Max Level
+```
+
+### 2. Real World Assets (RWA): Property NFTs
+Transform real estate ownership with evolving property NFTs:
+- 🏠 Property value appreciation tracking
+- 📈 Rental income history
+- 🏗️ Improvements and renovations record
+- ⚖️ Regulatory compliance updates
+
+Example Implementation:
+```move
+// Property evolution with rental updates
+public entry fun update_property_value(
+    treasury: &mut Treasury,
+    property: &mut PropertyNFT,
+    new_rental_rate: u64,
+    ctx: &mut TxContext
+) {
+    // Only kiosk owner can update
+    assert!(is_kiosk_owner(property, ctx), ERR_NOT_OWNER);
+    
+    // Update rental rate
+    property.rental_rate = new_rental_rate;
+    property.last_update = tx_context::epoch(ctx);
+    
+    // Enforce fee for updates
+    transfer::transfer(coin::create(FEE_AMOUNT, ctx), TREASURY_ADDRESS);
+}
+```
+
+### RWA Property Evolution
+
+```mermaid
+stateDiagram-v2
+    [*] --> Listed
+    Listed --> Rented: Sign Lease
+    Rented --> Upgraded: Add Amenities
+    Upgraded --> Listed: New Listing
+    Listed --> Sold: Transfer
+```
+
+---
+
+## Why This is Revolutionary
+
+1. **True Decentralization**
+   - All evolution data stored on Walrus blob storage
+   - No reliance on centralized servers
+   - Complete history preservation
+   - Verifiable evolution paths
+
+2. **Composable Evolution**
+   - NFTs can evolve based on multiple triggers
+   - Cross-game/application compatibility
+   - Programmable evolution paths
+   - Community-driven evolution mechanics
+
+3. **Secure Ownership**
+   - Kiosk integration ensures only true owners can evolve NFTs
+   - Transparent fee structure
+   - Protected evolution rights
+   - Marketplace compatibility
+
+4. **Technical Innovation**
+   - Efficient on-chain storage through Walrus
+   - Gas-optimized evolution mechanics
+   - Scalable attribute system
+   - Cross-chain potential
+
+---
+
+## VRAM Genesis Implementation
+
+The VRAM Genesis Collection (3,333 NFTs) showcases the Axolotl Standard's capabilities:
+- 🎯 15 SUI mint price
+- 🖼️ Decentralized storage on Walrus mainnet
+- 🔄 Progressive utility evolution
+- 🎁 Holder benefits (airdrops, AI access, governance)
+- 🔗 Full marketplace integration
+
+---
+
 ## Getting Started
 
-To implement the Axolotl Standard in your Sui NFT project:
+1. Clone this repository
+2. Install Sui CLI
+3. Build the project:
+```bash
+sui move build
+```
 
-1. **Set up your project**
-   ```bash
-   sui move new my-evolving-nft
-   cd my-evolving-nft
-   ```
-
-2. **Import the Axolotl Standard**
-   ```rust
-   // In your Move.toml
-   [dependencies]
-   Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "framework/testnet" }
-   AxolotlStandard = { git = "https://github.com/vram-ai/axolotl-standard.git", rev = "main" }
-   ```
-
-3. **Initialize the Treasury**
-   ```rust
-   module my_evolving_nft::collection {
-       use sui::object::{Self, UID};
-       use sui::tx_context::{Self, TxContext};
-       use axolotl_standard::treasury::{Self, Treasury};
-       
-       fun init(ctx: &mut TxContext) {
-           // Create and share the Treasury object
-           treasury::create_and_share(ctx);
-       }
-   }
-   ```
-
-4. **Implement the NFT module using the provided code examples**
-
-5. **Build and deploy**
-   ```bash
-   sui move build
-   sui client publish --gas-budget 10000000
-   ```
+4. Deploy:
+```bash
+sui client publish --gas-budget 200000000
+```
 
 ---
 
-## Use Cases
+## Documentation
 
-The Axolotl Standard enables numerous creative applications:
-
-- **Story-Driven NFTs**: Characters that visually evolve as their storyline progresses
-- **Achievement-Based Evolution**: NFTs that transform based on owner accomplishments
-- **Community-Driven Development**: Assets that evolve based on collective governance
-- **Ecosystem-Reflective Collectibles**: NFTs that represent protocol milestones
-- **Dynamic Game Assets**: In-game items that gain new capabilities through use
+For full technical documentation, visit our [Gitbook](https://vram-ai-1.gitbook.io/).
 
 ---
 
-## Resources
+## License
 
-- [GitHub Repository](https://github.com/vram-ai/axolotl-standard)
-- [Sui Framework Documentation](https://docs.sui.io/)
-- [Walrus Blob Storage Docs](https://docs.sui.io/build/walrus)
-- [Sample Projects](https://github.com/vram-ai/axolotl-examples)
+MIT License
 
 ---
 
-*Developed by VRAM.AI - Building evolving experiences on Sui*
+*Built with ❤️ by VRAM AI*

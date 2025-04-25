@@ -1,6 +1,29 @@
+# Build artifacts
 build/
-wallet_recovery.txt
-vram_admin_backup.txt
-VRAM_DEPLOYMENT_SUMMARY.md
-VRAM_DEPLOYMENT_SUMMARY.md
-VRAM_DEPLOYMENT_SUMMARY.md
+target/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# Environment files
+.env
+.env.*
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Dependency directories
+node_modules/
+
+# Debug logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local config
+sui.log.*
+.history/
